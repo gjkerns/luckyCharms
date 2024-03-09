@@ -35,7 +35,7 @@ See this GitHub repository for all of the data, code, photos, etc.
 
 ### Background
 
-Some years ago I hears a story about somebody investigating the question of whether or not "Double Stuf" Oreos are actually double stuff.  (They're not.)  It was a neat experiment, and there is quite a bit of material on the Internet about it nowadays, [check here to get started](http://blog.recursiveprocess.com/2013/03/03/oreo-original-vs-double-vs-mega/).  Evidently it caused enough splash that some teachers were using it as an introductory statistics activity in the public schools, and indeed students have told me they did it at their own school.  
+Some years ago there was a story about somebody investigating the question of whether or not "Double Stuf" Oreos are actually double stuff.  (They're not.)  It was a neat experiment, and there is quite a bit of material on the Internet about it nowadays, [check here to get started](http://blog.recursiveprocess.com/2013/03/03/oreo-original-vs-double-vs-mega/).  Evidently it caused enough splash that some teachers were using it as an introductory statistics activity in the public schools, and indeed students have told me they did it at their own school.  
 
 ### Introduction
 
@@ -127,14 +127,54 @@ Now let's look at `totcharms` versus `weight`.
 
 
 ```{r}
-# this is predicted line comparing only chosen variables
 Lucky |> ggplot(aes(x = weight, y = totcharms, color = box)) + 
   geom_point(size = 3) +
   labs(x = 'Weight (g)', y = '# Charms', color = 'Box') -> p2
 p2
 ```
 
-This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum less than 30 up to a maximum over 65.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough remaining to make the full 8oz.  But notice there is one extra-heavy bowl.  There is nothing to say about that bowl other than it was just a heavy bowl.  The observation is not a mistake, and the scale was not malfunctioning.  It was just a heavy bowl of cereal. The relationship between `totcharms` and `weight` does not appear to be strongly linear, but there is a hidden dependence between `totcharms`, `bowl`, and `weight`, which we can investigate with a 3D plot. 
+This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum less than 30 up to a maximum over 65.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough remaining to make the full 8oz.  Notice there is one bowl which was extra-heavy bowl. It isn't obvious what the explanation is, but if we dig a little deeper and plot `weight` versus `bowl` we can get a hint:
+
+
+
+```{r}
+Lucky |> ggplot(aes(x = bowl, y = weight, color = box)) + 
+  geom_point(size = 3) + ylim(5, 75) +
+  labs(x = 'Bowl', y = 'Weight (g)', color = 'Box') -> p3
+p3
+```
+
+We see that the extra-heavy bowl was the last `bowl = 12`  of `box = 1`.  I don't remember that particular data point, but since it was the first time the team had ever finished a box, near the end it was difficult to judge how much was left and we just poured the rest of the box into that last bowl---I do this myself all the time at breakfast when I am nearing the end of a box of cereal.  Just looking at the points on the graph, if that 12th bowl of 70g would have been split into (maybe) 40g and 30g, then we would have had two boxes that made it to 13 bowls instead of one.  Alas!  Such is life and the scientific enterprise.
+
+While the relationship between `totcharms` and `weight` does not appear to be strongly linear, there is another relationship  between `totcharms`, `bowl`, and `weight`, which we can investigate with a 3D plot. 
+
+```{r}
+library(tidyverse)    
+# # Data in wide format
+# df_wide <- data.frame(
+#   Horizons = seq(1,10,1),
+#   Country1 = c(2.5, 2.3, 2.2, 2.2, 2.1, 2.0, 1.7, 1.8, 1.7, 1.6),
+#   Country2 = c(3.5, 3.3, 3.2, 3.2, 3.1, 3.0, 3.7, 3.8, 3.7, 3.6),
+#   Country3 = c(1.5, 1.3, 1.2, 1.2, 1.1, 1.0, 0.7, 0.8, 0.7, 0.6)
+# )
+# 
+# # Convert to long format
+# df_long <- df_wide %>%
+#   gather(key = "variable", value = "value", -Horizons)
+# 
+# colors <- c(Country1 = "red", Country2 = "grey50", Country3 = "grey50")
+# sizes <- c(Country1 = 2, Country2 = .5, Country3 = .5)
+# # Plot the lines
+# plotstov <- ggplot(df_long, aes(x = Horizons, y = value)) + 
+#   geom_line(aes(colour = variable, size = variable, group = variable)) +
+#   scale_color_manual(values = colors) +
+#   scale_size_manual(values = sizes) +
+#   theme_bw()
+# plotstov
+```
+
+
+
 
 
 
