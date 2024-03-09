@@ -1,0 +1,13 @@
+name: lucky
+title: lucky
+username:
+account: gjkerns
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11444763
+bundleId: 8351315
+url: https://gjkerns.shinyapps.io/lucky/
+when: 1709945628.98002
+lastSyncTime: 1709945628.98006
+asMultiple: FALSE
+asStatic: FALSE
