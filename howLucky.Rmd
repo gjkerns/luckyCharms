@@ -17,6 +17,7 @@ library(ggplot2)
 library(plotly)
 library(reshape)
 library(readxl)
+library(tidyverse)
 Lucky <- read_excel("Lucky.xlsx")
 Lucky$Box <- factor(Lucky$Box)
 ```
@@ -29,19 +30,19 @@ See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of 
 
 # Background and introduction
 
-![Figure 1: They're Magically Delicious!](photo/luckycharms.jpg)
+![Figure 1. They're Magically Delicious!](photo/luckycharms.jpg)
 
 
 
 ### Background
 
-Some years ago there was a story about somebody investigating the question of whether or not "Double Stuf" Oreos were truly double-stuffed.  (They're not.)  It was a neat experiment, and there is quite a bit of material on the Internet about it nowadays, [check here to get started](http://blog.recursiveprocess.com/2013/03/03/oreo-original-vs-double-vs-mega/).  It evidently caused enough splash that some teachers were said to be using it for an introductory statistics activity in the public schools, and indeed students have told me they repeated the experiment at their own school.  
+In the early 2010's there were a series of articles that circulated on the Internet about somebody investigating whether or not "Double Stuf" Oreos were truly double-stuffed.  (They're not.)  It was a neat idea, and a substantial amount of material has been written about it in the years since, [see here to get started](http://blog.recursiveprocess.com/2013/03/03/oreo-original-vs-double-vs-mega/).  It evidently caused enough splash that some teachers were said to be using the experiment as an activity in their classrooms, and  students locally have reported performing the experiment at their own school.  
 
 ### Introduction
 
-Against this backdrop and in the summer of 2023 I was eating a bowl of Lucky Charms one morning.  The box was near empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, and millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember.  They truly live up to their tagline: *Magically Delicious*!  However, it occurred to me on that summer morning that the latter bowls of the box don't seem to be quite so *magical* as the earlier bowls are.  They've lost something.  (The charms, of course.)  But was it my imagination?  Is this effect real?  And if so, is it detectable?
+Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that my latter bowls of the box just didn't seem quite as *magical* as the first bowls had seemed to be.  They had lost something.  (The charms, of course.)  But could it be my imagination?  Was this effect real?  And if so, was it detectable?
 
-I happened to be assigned to a summer upper-division undergraduate Probability & Statistics class at the time and the 4 students and I were determined to find out.
+I happened to be teaching an upper-division undergraduate Probability & Statistics class at the time and the 4 students and I were determined to find out.
 
 
 # Experiment and data
@@ -50,29 +51,29 @@ After some discussion, we decided on our materials and methods.
 
 ### Materials
 
-- Six (6) boxes of Family-size Lucky Charms (18.6oz)
+- Six (6) boxes of Family-size Lucky Charms (18.6oz, 527g)
 - Electronic kitchen scale
-- Two plastic "bowls", Container A and Container B, measuring 40.125g and 28.375 respectively
-- Large bowl for discards, trash bags, and other assorted ancillaries
+- Two plastic "bowls", Container A and Container B, measuring 40.125g and 28.375g respectively
+- Large bowl for discards, some trash bags, and other assorted ancillaries
 
-The Lucky Charms were purchased from our local retailer---Wal-Mart.  There wasn't anything special about the number of boxes, it was simply the number I could carry with two hands to the sixth floor of Cafaro Hall in one trip.  The kitchen scale was for measuring the weight of cereal, which the team thought might be important, and the scale would also help with data collection because we didn't want to be overly concerned with sampling the exact same quantity of cereal every time.
+The Lucky Charms were purchased from our local retailer---Wal-Mart.  There was nothing special about $n = 6$ boxes, it was simply the number of boxes a person could carry with two hands to the sixth floor of Cafaro Hall in a single trip.  The kitchen scale was for measuring the weight of cereal, which the team thought might be important, and the scale would also help with data collection because we didn't want to be overly preoccupied with sampling the exact same quantity of cereal every time.
 
 
-![Figure: Weighing in.](photo/weight.jpg)
+![Figure 2. Weighing in.](photo/weight.jpg)
 
 ### Methods
 
-For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving as recommended on the box (1 cup or 36g), even though nobody but a tiny magical leprechaun can get by on only 36g of Lucky Charms for breakfast.  The team was not overly careful with the bowl size, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway, and were shooting for a healthy range of observed weights.
+For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving as recommended on the box (1 cup or 36g), even though it is ridiculous for anybody but a tiny magical leprechaun to get by on a meager 36g of Lucky Charms for breakfast.  The team was not particularly careful with the bowl size, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway, and were shooting for a healthy range of observed weights.
 
-![Figure 5: Pictured: Gavin Duwe (l) and Breanna Brocker (r)](photo/collect1.jpg)
+![Figure 3. Pictured: Gavin Duwe (l) and Breanna Brocker (r)](photo/collect1.jpg)
 
 A bowl was scooped directly out of the box, weighed, and then poured out on a table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Then the following eight (8) charm types were recognized and their number recorded:  Rainbows, Pink Hearts, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons and Orange Stars.
 
 
-![Figure 7: This was counted as 3 Purple Horseshoes.](photo/pieces.jpg)
+![Figure 4. This was counted as 3 Purple Horseshoes.](photo/pieces.jpg)
 
 
-Typically There were little bits and pieces of charms mixed about in the bowl; not every charm is 100% whole.  To deal with this, the team attempted to classify the bit in the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small/nondescript for type  identification then it was discarded.
+There were typically little bits and pieces of charms mixed about in the bowl; not every charm is 100% whole.  To deal with this, the team attempted to classify the bit as to the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small/nondescript for type  identification then it was discarded.
 
 
 ## The data
@@ -80,11 +81,11 @@ Typically There were little bits and pieces of charms mixed about in the bowl; n
 Data were collected over two separate class meetings---we had other statistical ground to cover, after all.  Two pairs of students collected and counted at once, and I helped with the scale and recording a hard copy of the weight values as they were called out and entered into the computer.
 
 
-![Figure 7: Data doesn't get much rawer than this.](photo/raw.jpg)
+![Figure 5. Data doesn't get much rawer than this.](photo/raw.jpg)
 
-The plastic bowls + cereal were weighed together each round, and then the weight of the bowl (measured at the start of the experiment) was subtracted from the observed total weight.  The charms were entered into their respective columns and totaled.
+The plastic container + cereal were weighed together each round, and then the weight of the container (measured at the start of the experiment) was subtracted from the observed total weight.  The charms were entered into their respective columns and totaled.
 
-![Pictured: Kate Coppola.](photo/laptop.jpg)
+![Figure 6. Pictured: Kate Coppola.](photo/laptop.jpg)
 
 
 ### Measured variables
@@ -92,24 +93,24 @@ The plastic bowls + cereal were weighed together each round, and then the weight
 - `Box`: the box number (1 through 6)
 - `Bowl`: the sequential bowl for each box (ranges from 1 to around 12)
 - `Observation`: the observed order of bowls across boxes (1 to 69)
-- `Totweight`: weight of each bowl + cereal, in grams
-- `Weight`: of cereal, in grams, after subtracting the weight of the respective plastic bowl
+- `Totweight`: weight of each plastic container + cereal, in grams
+- `Weight`: of cereal in grams, after subtracting the weight of the container
 - `Hearts`, `Stars`, etc: how many of that charm in that bowl
 - `Totcharms`: sum total of the assorted charms
 
 
-![Pictured: Haziq Rabbani](photo/collect3.jpg)
+![Figure 7. Pictured: Haziq Rabbani](photo/collect3.jpg)
 
 
 Here is a look at the top of the data set (first 6 rows):
 
 
 ```{r}
-head(Lucky)
+knitr::kable(head(Lucky), "simple")
 ```
 
 
-The average `Weight` was approximately 46.3g, the naximum number of a particular charm was 15 (Pink Hearts and Purple Horseshoes) in any one bowl, and there are many, many other statistics and tables we can construct for this data set.  For the task at hand, though, at the moment we are primarily concerned with `Totcharms`, and how that response variable is related to `Bowl`, and maybe `Weight` to a lesser extent.
+The average `Weight` was approximately 46.3g, the naximum number of a particular charm in any one bowl was 15 (Pink Hearts tied with Purple Horseshoes), and there are many, many other statistics and tables of interest in this data set.  For the task at hand, though, at the moment we are primarily concerned with `Totcharms`, and how that response variable is related to `Bowl`, and maybe `Weight` to a lesser extent.
 
 Here is a graph of `Totcharms` by `Bowl`, colored by `Box`.
 
@@ -125,7 +126,7 @@ Here we see a clear decreasing trend in `Totcharms` as `Bowl` increases, and the
 
 
 ```{r}
-sizes <- c(2.5, 1, 2.5, 1, 1, 1)
+sizes <- c(2, 1, 2, 1, 1, 1)
 alphas <- c(1, 0.2, 1, 0.2, 0.2, 0.2)
 Lucky |> ggplot(aes(x = Bowl, y = Totcharms)) +
   geom_line(aes(colour = Box, linewidth = Box, alpha = Box)) +
@@ -133,7 +134,7 @@ Lucky |> ggplot(aes(x = Bowl, y = Totcharms)) +
   scale_alpha_manual(values = alphas, guide = "none")
 ```
 
-We can see a general trend downward for each series, but the path to get there varies for every box.  Notice how Box 3 starts high and stays high for a few bowls before dropping off smoothly until after Bowl 10, when it crashes. Low how Box 1 starts relatively low, but then increases after Bowl 5, peaks at Bowl 8, then nosedives down to Bowl 12.  It's as if the charms were settled near the top of Box 3, but were more concentrated in more of a pocket near the middle of Box 1. Some boxes bounce around a great deal, while some boxes are more of a straight line downward.  Put it all together, though, and the overall trend is decreasing, and linear.  Note that all boxes lasted to Bowl 11, but only 2 boxes had 12 bowls and only a single box (Box 4) made it to Bowl 13.
+We can see a general trend downward for each series, but the path to get there varies for every box.  Notice how Box 3 starts high and stays high for a few bowls before dropping off smoothly until after Bowl 10, when it crashes. Look how Box 1 starts relatively low, but then increases after Bowl 5, peaks at Bowl 8, then nosedives down to Bowl 12.  It's as if the charms were settled near the top of Box 3, but were more concentrated in a pocket near the middle of Box 1. Some boxes bounce around a great deal, while some boxes are more of a straight line downward.  Put it all together, though, and the overall trend is decreasing and linear.  Note that all boxes lasted to Bowl 11, but only 2 boxes had 12 bowls, and a single box (Box 4) made it to Bowl 13.
 
 Now let's take a look at `Totcharms` versus `Weight`.
 
@@ -145,7 +146,7 @@ Lucky |> ggplot(aes(x = Weight, y = Totcharms, color = Box)) +
 p2
 ```
 
-This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum less than 30g up to a maximum near  70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough remaining to make a full 8oz bowl.  And notice the one bowl which was extremely heavy. It isn't obvious what the explanation is, but if we dig a little deeper and plot `weight` versus `bowl` we can get a hint:
+This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough remaining to make a full 36g bowl.  And notice the one bowl which was extremely heavy. It isn't obvious what the explanation for that is, but if we dig a little deeper and plot `Weight` versus `Bowl` we can get a hint:
 
 
 
@@ -156,7 +157,7 @@ Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) +
 p3
 ```
 
-We see that the extra-heavy bowl was the last `Bowl = 12`  of `Box = 1`.  I don't remember that particular data point, but since it was the first time the team had ever finished a box, near the end it would have been difficult to judge how much was left and we just poured the remainder of the box into that last bowl---I do this all the time at breakfast when I am nearing the end of a box of cereal.  Just looking at the points on the graph, if that 12th bowl of 70g would have been split into (maybe) 40g and 30g, then we would have had two boxes that lasted to 13 bowls instead of one, and maybe the models below would have fit better.  Alas!  Such is the scientific enterprise.
+Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  I don't remember that particular data point, but since it was the first time the team had ever finished a box, near the end it would have been difficult to judge how much was left and presumably we just poured the remainder of the box into that last bowl---I do this all the time at breakfast when I am nearing the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of 70g would have been split into (maybe) 40g and 30g, then we would have had two boxes that lasted to 13 bowls instead of one, and maybe the models below would have fit better.  Alas!  Such is the scientific enterprise.
 
 While the relationship between `Totcharms` and `Weight` does not appear to be strongly linear, there is a hidden relationship  between `Totcharms`, `Bowl`, and `Weight`, which is best visualized with a 3D plot. 
 
@@ -174,7 +175,7 @@ fig
 ```
 
 
-Note that the 3D plot is interactive.  Go ahead, spin it around, zoom, pan---check it out.  If you spin it around just right you will see that the dots lie more-or-less on a flat plane in 3D-space.  This is **exactly** the kind of relationship we are looking for in a multiple linear regression model (which we'll get to in a minute.)
+Note that the 3D plot is interactive.  Go ahead, spin it around, zoom, pan---check it out.  If you spin it around just right you will see that the dots lie more-or-less on a flat plane in 3D-space.  This is **exactly** the kind of relationship we are looking for in a multiple linear regression model (we'll get to that in a minute.)
 
 
 # Model fitting
@@ -286,7 +287,7 @@ lucky_plot <- add_trace(p = lucky_plot,
 lucky_plot
 ```
 
-3D-plots are a lot of fun, and I never get bored with them.  The coolest thing is that `plotly` and `RStudio` and `GitHub` and the rest all exist nowadays which makes sharing such things with other people easier than ever before.  I hope you enjoy playing with it as much as I have.
+3D-plots are a lot of fun.  I never get bored with them.  The coolest thing is that `plotly` and `RStudio` and `GitHub` and the rest all exist nowadays which makes sharing such things with other people easier than ever before.  I hope you enjoy playing with it as much as I have.
 
 As a final remark, in the `tl;dr` statement we claimed that the interaction between `Bowl` and `Weight` is not significant---it isn't.  We leave that for the reader to verify independently with something like this:
 
