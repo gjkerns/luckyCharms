@@ -24,9 +24,12 @@ Lucky$Box <- factor(Lucky$Box)
 
 
 
-**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to be significant and for an increase of 1g of cereal we estimate an increase of approximately 0.5 charms on average---for bowl held constant.  The interaction between bowl and weight is not statistically significant.
+**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to be significant and for an increase of 1g of cereal we estimate an increase of approximately 0.5 charms on average---with bowl held constant.  The interaction between bowl and weight is not statistically significant.
 
 See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of the data, code, photos, etc.
+
+Also check out this [interactive Tableau workbook]() published on Tableau Public.
+
 
 # Background and introduction
 
@@ -65,7 +68,7 @@ The Lucky Charms were purchased from our local retailer---Wal-Mart.  There was n
 
 For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving as recommended on the box (1 cup or 36g), even though it is ridiculous for anybody but a tiny magical leprechaun to get by on a meager 36g of Lucky Charms for breakfast.  The team was not particularly careful with the bowl size, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway, and were shooting for a healthy range of observed weights.
 
-![Figure 3. Pictured: Gavin Duwe (l) and Breanna Brocker (r)](photo/collect1.jpg)
+![Figure 3. Pictured: Gavin Duwe (l) and Brenna Brocker (r)](photo/collect1.jpg)
 
 A bowl was scooped directly out of the box, weighed, and then poured out on a table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Then the following eight (8) charm types were recognized and their number recorded:  Rainbows, Pink Hearts, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons and Orange Stars.
 
@@ -175,7 +178,7 @@ fig
 ```
 
 
-Note that the 3D plot is interactive.  Go ahead, spin it around, zoom, pan---check it out.  If you spin it around just right you will see that the dots lie more-or-less on a flat plane in 3D-space.  This is **exactly** the kind of relationship we are looking for in a multiple linear regression model (we'll get to that in a minute.)
+Note that the 3D plot is interactive.  Go ahead, spin it around, zoom, pan---check it out.  If you spin it around just right you will see that the dots lie more-or-less on a flat plane in 3D-space.  This is **exactly** the kind of relationship we are looking for in a multiple linear regression model (we'll get to that in a minute).
 
 
 # Model fitting
@@ -244,47 +247,47 @@ We've got to do this one.  It is a really cool plot to see and play with, but th
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-library(plotly)
-library(reshape2)
-
-#Graph Resolution (more important for more complex shapes)
-graph_reso <- 0.05
-
-#Setup Axis
-axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
-axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
-
-#Sample points
-charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
-charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
-lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
-
-# construct the base scatterplot
-lucky_plot <- plot_ly(Lucky,
-                      x = ~Bowl,
-                      y = ~Weight,
-                      z = ~Totcharms,
-                      text = ~Box, # EDIT: ~ added
-                      type = "scatter3d",
-                      color = ~Box,
-                      mode = "markers")
-
-# set up the scene with axis titles
-lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
-                                   yaxis = list(title = 'Weight (g)'),
-                                   zaxis = list(title = '# Charms')),
-                                   legend=list(title=list(text='Box')),
-                                   showlegend=FALSE)
-
-# add the surface
-lucky_plot <- add_trace(p = lucky_plot,
-                        z = lucky_lm_surface,
-                        x = axis_x,
-                        y = axis_y,
-                        type = "surface")
-
-# make the plot
-lucky_plot
+# library(plotly)
+# library(reshape2)
+# 
+# #Graph Resolution (more important for more complex shapes)
+# graph_reso <- 0.05
+# 
+# #Setup Axis
+# axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
+# axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
+# 
+# #Sample points
+# charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
+# charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
+# lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
+# 
+# # construct the base scatterplot
+# lucky_plot <- plot_ly(Lucky,
+#                       x = ~Bowl,
+#                       y = ~Weight,
+#                       z = ~Totcharms,
+#                       text = ~Box, # EDIT: ~ added
+#                       type = "scatter3d",
+#                       color = ~Box,
+#                       mode = "markers")
+# 
+# # set up the scene with axis titles
+# lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
+#                                    yaxis = list(title = 'Weight (g)'),
+#                                    zaxis = list(title = '# Charms')),
+#                                    legend=list(title=list(text='Box')),
+#                                    showlegend=FALSE)
+# 
+# # add the surface
+# lucky_plot <- add_trace(p = lucky_plot,
+#                         z = lucky_lm_surface,
+#                         x = axis_x,
+#                         y = axis_y,
+#                         type = "surface")
+# 
+# # make the plot
+# lucky_plot
 ```
 
 3D-plots are a lot of fun.  I never get bored with them.  The coolest thing is that `plotly` and `RStudio` and `GitHub` and the rest all exist nowadays which makes sharing such things with other people easier than ever before.  I hope you enjoy playing with it as much as I have.
