@@ -24,7 +24,7 @@ Lucky$Box <- factor(Lucky$Box)
 
 
 
-**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to be significant and for an increase of 1g of cereal we estimate an increase of approximately 0.5 charms on average---with bowl held constant.  The interaction between bowl and weight is not statistically significant.
+**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl of cereal eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to play a role when suitably incorporated and for each increase of 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant.  The interaction between bowl and weight is not statistically significant.
 
 See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of the data, code, photos, etc.
 
@@ -111,7 +111,7 @@ knitr::kable(head(Lucky), "simple")
 ```
 
 
-The average `Weight` was approximately 46.3g, the naximum number of a particular charm in any one bowl was 15 (Pink Hearts tied with Purple Horseshoes), and there could be many, many other statistics and tables of interest in this data set to explore.  For the task at hand, though, we are primarily concerned with `Totcharms`, and how that response variable is related to `Bowl`, and maybe `Weight` to a lesser extent.
+The average `Weight` was approximately 46.3g, the maximum number of a particular charm in any one bowl was 15 (Pink Hearts was tied with Purple Horseshoes), and we could spend all day computing additional statistics of all shapes and sizes on this dataset until our Pink Heart was content.  At the moment, though, we are primarily interested in `Totcharms` and how that response variable is related to `Bowl` and maybe `Weight` to a lesser extent.
 
 Here is a graph of `Totcharms` by `Bowl`, colored by `Box`.
 
@@ -147,7 +147,7 @@ Lucky |> ggplot(aes(x = Weight, y = Totcharms, color = Box)) +
 p2
 ```
 
-This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough cereal remaining to make a full 36g bowl.  And notice the one bowl which was extraordinarily heavy. It isn't obvious what the explanation for that is, but if we dig a little deeper and plot `Weight` versus `Bowl` we can get a hint:
+This is a much noisier plot---as we might guess.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough cereal remaining to make a complete 36g bowl.  And notice there is one bowl that was extraordinarily heavy. It isn't obvious what an explanation for that could be, but if we dig a little deeper and plot `Weight` versus `Bowl` we can get a hint:
 
 
 
@@ -158,9 +158,9 @@ Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) +
 p3
 ```
 
-Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The reason behind that particular data point has unfortunately been lost to the sands of time, but since it was the first box the team had ever finished, near the end it may have been difficult to judge how much was left, and perhaps the rest was poured  into that last bowl---I personally do the same thing all the time at breakfast when I am nearing the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of almost 70g had been split into (say) two bowls of 40g and 30g, respectively, then we would have had two boxes that lasted to 13 bowls instead of one, and maybe the models below would have fit slightly better.  Alas!  We will never know. Such is the scientific enterprise.
+Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The explanation behind that particular data point has unfortunately been lost to the Sands of Time, but bearing in mind that it was the first box the team had ever finished, near the end it may have been difficult to judge how much cereal was left, and perhaps the rest was poured into that final bowl---I personally do the same thing all the time at breakfast when I am nearing the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of almost 70g had been split into (say) two bowls of 40g and 30g, respectively, then there would have been two boxes that lasted to 13 bowls instead of one box, and maybe the models below would have fit the data slightly better.  Alas!  We will never know. Such is the scientific enterprise.
 
-While the relationship between `Totcharms` and `Weight` does not appear to be strongly linear, there is a hidden relationship  between `Totcharms`, `Bowl`, and `Weight`, which is best visualized with a 3D plot. 
+While the relationship between `Totcharms` and `Weight` is poorly linear, there is a hidden relationship  between `Totcharms`, `Bowl`, and `Weight` which can best be displayed with a 3D visualization. 
 
 
 ```{r}
@@ -192,7 +192,7 @@ mod1 <- lm(Totcharms ~ Bowl, data = Lucky)
 summary(mod1)
 ```
 
-We see that `Bowl` is a highly significant predictor for `Totcharms`.  The slope is approximately $-2.7$, in other words, for each additional bowl of Lucky Charms eaten we estimate the average `Totcharms` to decrease by 2.7 charms.  Our coefficient of determination is $R^2 = 0.5442$, that is, approximately 54% of the variance in `Totcharms` is explained by the regression model with `Bowl` as a predictor.  There should be a whole discussion included here about residual analysis which we are going to skip, but suffice it to say that the residual plots are relatively well-behaved.  Let's check out a fitted line plot with confidence bands for the regression line (the default):
+We see that `Bowl` is strongly linearly associated with `Totcharms`.  The slope on `Bowl` is approximately $-2.7$, in other words, for each additional bowl of Lucky Charms eaten we estimate the average `Totcharms` to decrease by 2.7 charms.  Our coefficient of determination is $R^2 = 0.5442$, that is, approximately 54% of the variance in `Totcharms` is explained by the regression model with `Bowl` as a predictor.  There should be a whole discussion included here about residual analysis which we are going to skip, but suffice it to say that the residual plots are relatively well-behaved.  Let's check out a fitted line plot with confidence bands for the regression line (the default):
 
 ```{r}
 p1 + geom_smooth(method = "lm", aes(group=1), colour="black")
@@ -202,34 +202,34 @@ That's a nice relationship with a clear decreasing trend.
 
 ## For Weight
 
-We will do the same thing for `Weight`, ignoring `Bowl` for the moment.  Here we go:
+We will do the same thing for `Weight`, ignoring `Bowl` for the time being.  Here we go:
 
 ```{r}
 mod2 <- lm(Totcharms ~ Weight, data = Lucky)
 summary(mod2)
 ```
 
-Here too, `Weight` is a highly significant predictor of `Totcharms`.  The slope is approximately $0.35$, in other words, for each additional 1g of Lucky Charms in a bowl we estimate the average `Totcharms` to increase by 0.35 charms.  This makes sense: more cereal, more charms.  The coefficient of determination is pretty bad: $R^2 = 0.0347$, that is, approximately NONE% of the variance in `Totcharms` is explained by the regression model with `Weight` as a predictor.  (!!)  That's okay, `Weight` was more of a supplementary measure to help control for variability in the scooped cereal amounts.  The residual analysis isn't as pretty here, which makes sense, and we would expect some problems anyway with the extreme values on the high and low ends.  For the sake of completeness we will include another fitted line plot:
+We do not find `Weight` to be a very useful predictor of `Totcharms` on its own, which is consistent with the scatterplot we have already seen.  We note for reference that the slope on `Weight` is estimated at $0.3502$, that is, each additional 1g of Lucky Charms corresponds to an average `Totcharms` increase of 0.35 charms.  This sounds reasonable: more cereal, more charms.  The coefficient of determination is pretty bad: $R^2 = 0.0347$, in other words, approximately NONE% of the variance in `Totcharms` is explained by the regression model with `Weight` as a predictor.  That's okay; `Weight` was more of a supplementary measure to help control for variability in the poured cereal amounts.  The residual analysis turns out to be not as bad as it could have been, which is nice, and we expected at least a few problems anyway given the extreme observations on the high and low ends of the weight range. For the sake of completeness we will include another fitted line plot:
 
 
 ```{r}
 p2 + geom_smooth(method = "lm", aes(group=1), colour="black")
 ```
 
-I had thought to use the `ggpubr` package to put these fitted-line plots together and try to save some space in the discussion, but the plots were rather cramped and not very informative.  Anyway, this is what I would have done:
+I originally planned to use the `ggpubr` package to put these fitted-line plots together and try to save some space in the discussion, but the plots were rather cramped and not very informative.  Anyway, this is what I would have done:
 
-```{r, message = FALSE, warning = FALSE}
-# library(ggpubr)
-# ggarrange(p1 + geom_smooth(method = "lm", aes(group=1), colour="black"),
-#           p2 + geom_smooth(method = "lm", aes(group=1), colour="black"),
-#           align = 'h', labels=c('A', 'B'), legend = "right",
-#           common.legend = TRUE)
+```{r, message = FALSE, warning = FALSE, eval = FALSE}
+library(ggpubr)
+ggarrange(p1 + geom_smooth(method = "lm", aes(group=1), colour="black"),
+          p2 + geom_smooth(method = "lm", aes(group=1), colour="black"),
+          align = 'h', labels=c('A', 'B'), legend = "right",
+          common.legend = TRUE)
 ```
 
 
 ## Multiple regression
 
-Now we get to the fun part: we've explored the relationship between `Totcharms` and `Bowl` and `Totcharms ~ Weight` individually, but what if we put them together?  Let's find out:
+Now we get to the fun part: we've explored the relationship between `Totcharms` and `Bowl` and `Totcharms ~ Weight` individually, but what happens if we put them together?  Let's find out:
 
 
 ```{r}
@@ -237,58 +237,58 @@ mod3 <- lm(Totcharms ~ Bowl + Weight, data = Lucky)
 summary(mod3)
 ```
 
-Check it out!  Both `Bowl` and `Weight` are still *highly* significant predictors of `Totcharms`.  The slopes are nearly identical, but the slope for `Weight` increased to nearly 0.5 charms for each additional 1g of cereal.  The slope for `Bowl` is still $-2.7$.  Our (adjusted) Multiple $R^2$ has increased to almost 60%---this is notable considering the small dataset, the overall noise level, and some questionable design choices for the experiment (every marshmallow bit counts as 1, etc.).  It's kind of a surprise that the data weren't more mischievous and belligerent.  If only more datasets we work with on a daily basis were so well-behaved.
+Check it out!  Now `Bowl` and `Weight` are **both** strongly linearly associated with `Totcharms`.  The slope on `Bowl` is nearly identical to what it was previously, $-2.7$, but the estimated slope on `Weight` has now increased to nearly 0.5 charms for each additional 1g of cereal.  Our (adjusted) Multiple $R^2$ has jumped to almost 60%---this is remarkable considering the relatively small sample size, the overall noise level in the dataset, and perhaps some questionable design choices (every little marshmallow bit counts as 1, etc.).  In retrospect, it is kind of amazing that the data didn't turn out to be worse.  It is not often that real data collected by hand in the wild are so good-natured.
 
 ### Add the regression plane
 
-We've got to do this one.  It is a really cool plot to see and play with, but the code is more involved than the other examples above.  Never fear, you can [check it all out in this GitHub Gist here](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947).  Let's get on with the plot:
+We've got to do this one.   The code is more involved than the other examples above and has been omitted in the interest of brevity, but never fear, it is fully included [in this GitHub Gist here](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947).  Let's get on with the plot:
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-# library(plotly)
-# library(reshape2)
-# 
-# #Graph Resolution (more important for more complex shapes)
-# graph_reso <- 0.05
-# 
-# #Setup Axis
-# axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
-# axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
-# 
-# #Sample points
-# charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
-# charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
-# lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
-# 
-# # construct the base scatterplot
-# lucky_plot <- plot_ly(Lucky,
-#                       x = ~Bowl,
-#                       y = ~Weight,
-#                       z = ~Totcharms,
-#                       text = ~Box, # EDIT: ~ added
-#                       type = "scatter3d",
-#                       color = ~Box,
-#                       mode = "markers")
-# 
-# # set up the scene with axis titles
-# lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
-#                                    yaxis = list(title = 'Weight (g)'),
-#                                    zaxis = list(title = '# Charms')),
-#                                    legend=list(title=list(text='Box')),
-#                                    showlegend=FALSE)
-# 
-# # add the surface
-# lucky_plot <- add_trace(p = lucky_plot,
-#                         z = lucky_lm_surface,
-#                         x = axis_x,
-#                         y = axis_y,
-#                         type = "surface")
-# 
-# # make the plot
-# lucky_plot
+library(plotly)
+library(reshape2)
+
+#Graph Resolution (more important for more complex shapes)
+graph_reso <- 0.05
+
+#Setup Axis
+axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
+axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
+
+#Sample points
+charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
+charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
+lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
+
+# construct the base scatterplot
+lucky_plot <- plot_ly(Lucky,
+                      x = ~Bowl,
+                      y = ~Weight,
+                      z = ~Totcharms,
+                      text = ~Box, # EDIT: ~ added
+                      type = "scatter3d",
+                      color = ~Box,
+                      mode = "markers")
+
+# set up the scene with axis titles
+lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
+                                   yaxis = list(title = 'Weight (g)'),
+                                   zaxis = list(title = '# Charms')),
+                                   legend=list(title=list(text='Box')),
+                                   showlegend=FALSE)
+
+# add the surface
+lucky_plot <- add_trace(p = lucky_plot,
+                        z = lucky_lm_surface,
+                        x = axis_x,
+                        y = axis_y,
+                        type = "surface")
+
+# make the plot
+lucky_plot
 ```
 
-Interactive 3D-plots are a lot of fun.  With `plotly` and `RStudio` and `GitHub` so widely available these days,  sharing such things with other people is easier than ever before.  I hope you enjoy playing with the above as much as I have.
+Interactive 3D-plots are a lot of fun.  With `plotly` and `RStudio` and `GitHub` so widely available these days,  sharing such things with other people is easier now than ever before.  I hope you enjoy playing with the above as much as I have.
 
 As a final remark, in the `tl;dr` paragraph at the beginning we claimed that the interaction between `Bowl` and `Weight` is not significant.  It isn't.  We leave that for the reader to verify independently via something like the following:
 
