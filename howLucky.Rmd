@@ -25,7 +25,7 @@ library(tidyverse)
 
 
 
-**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl of cereal eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to play a role when suitably included and for each increase of 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant. This corresponds to a reduction of over 50% in charms from the 1st bowl to the last. The interaction between bowl and weight is not statistically significant.
+**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl of cereal eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to play a role when suitably incorporated into the model and for each increase of 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant. This corresponds to a reduction of over 50% in charms from the first bowl to the last. The interaction between bowl and weight is not statistically significant.
 
 See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of the data, code, photos, etc.
 
@@ -160,7 +160,7 @@ Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) +
 p3
 ```
 
-Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The reason behind that particular data point has unfortunately been lost to the sands of time, but bearing in mind that it was the first box the team had ever finished, near the end it may have been difficult to judge how much cereal was left, and perhaps the rest was poured into that final twelfth bowl---I personally do the same thing all the time at breakfast time as I near the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of almost 70g had been split into (say) two bowls of 40g and 30g, respectively, then there would have been two boxes that made it to 13 bowls instead of one box, and maybe the models below would have fit the observed data slightly better.  Alas!  We will never know. Such is the scientific enterprise.
+Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The reason behind that particular data point has unfortunately been lost to the sands of time, but bearing in mind that it was the first box the team had ever finished, near the end it may have been difficult to judge how much cereal was left, and perhaps the rest was poured into that final twelfth bowl---I personally do the same thing all the time at breakfast as I near the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of almost 70g had been split into (say) two bowls of 40g and 30g, respectively, then there would have been two boxes that made it to 13 bowls instead of one box, and maybe the models below would have fit the observed data slightly better.  Alas!  We will never know. Such is the scientific enterprise.
 
 While the relationship between `Totcharms` and `Weight` is poorly linear, there is a hidden relationship  between `Totcharms`, `Bowl`, and `Weight` which can best be displayed with a 3D visualization. 
 
@@ -210,7 +210,7 @@ mod2 <- lm(Totcharms ~ Weight, data = Lucky)
 summary(mod2)
 ```
 
-We do not find `Weight` to be a very useful predictor of `Totcharms` on its own, which is consistent with the scatterplot we have already seen.  We note for reference that the slope on `Weight` is estimated at $0.3502$, that is, each additional 1g of Lucky Charms corresponds to an average `Totcharms` increase of 0.35 charms.  This sounds reasonable: more cereal, more charms.  The coefficient of determination is pretty bad: $R^2 = 0.0347$, in other words, approximately NONE% of the variance in `Totcharms` is explained by the regression model with `Weight` as a predictor.  That's okay; `Weight` was more of a supplementary measure to help control for variability in the poured cereal amounts.  The residual analysis turns out to be not as bad as it could have been, which is nice, and we expected at least a few problems anyway given the extreme observations on the high and low ends of the weight range. For the sake of completeness we will include another fitted line plot:
+We do not find `Weight` to be a very useful predictor of `Totcharms` on its own, which is consistent with the scatterplot we have already seen.  We note for reference that the slope on `Weight` is estimated at $0.3502$, that is, each additional 1g of Lucky Charms corresponds to an average `Totcharms` increase of 0.35 charms.  This sounds reasonable: more cereal, more charms.  The coefficient of determination is pretty bad: $R^2 = 0.0347$, in other words, approximately NONE% of the variance in `Totcharms` is explained by the regression model with `Weight` as a predictor.  That's okay; `Weight` was more of a supplementary measure to help control for variability in the poured cereal amounts.  The residual analysis turns out to be not as bad as it could have been, which is nice, and we expected at least a few problems anyway given the extreme observations on the high and low ends of the weight range. For the sake of completeness we include another fitted line plot:
 
 
 ```{r}
@@ -298,27 +298,27 @@ summary(lm(Totcharms ~ Bowl * Weight, data = Lucky))
 
 # Discussion and questions
 
-I originally thought that either the whole thing would turn out to be a figment of my imagination or the effect would be too small to detect without LOTS AND LOTS of boxes of Lucky Charms.  Both alternatives turned out to be false.  The effect is real, and is big enough to detect with a mere handful of boxes.
+I originally thought that either the whole thing would turn out to be a figment of my imagination or the effect would be too small to detect without LOTS AND LOTS of boxes of Lucky Charms.  Both alternatives turned out to be false.  The effect is real, and is big enough to detect with a couple handfuls of boxes.
 
-## The Lucky Charms drop-off
+## The Lucky Charms dropoff
 
 The model `mod3` permits us to quickly arrive at some startling conclusions.  For example: how many charms do we estimate to be in the opening bowl of a box of Lucky Charms?  We saw earlier that the average `Weight` in this study was 46.3g.  When `Box = 1` the model estimates the average `Totcharms` to be
 
 ```{r}
 33.3168 + (-2.7552)*1 + 0.4819*46.3
 ```
-That is, almost 53 charms in the first bowl.  What about the last bowl?  Okay, not every box made it to `Bowl 13`, but they all made it to `Bowl = 11`.  How many charms?
+That is, almost 53 charms in the first bowl of cereal.  What about the last bowl?  Okay, not every box made it to `Bowl 13`, but they all made it to `Bowl = 11`.  How many charms?
 
 ```{r}
 33.3168 + (-2.7552)*11 + 0.4819*46.3
 ```
-WOW.  25.3 charms on average.  This corresponds to just over a 52% reduction in charms from the first bowl to the eleventh.  No, it wasn't my imagination, any person should be able to detect this easily by taste alone.
+WOW.  25.3 charms on average.  This corresponds to just over a 52% reduction in charms from the first bowl to the eleventh.  No, it definitely wasn't my imagination, any hungry toddler should be able to detect this easily by taste alone.
 
-Then the next question is: why?  The standard explanation on physical grounds for the effect would probably go along the lines of considering a box of Lucky Charms as a simple mixture of cereal and marshmallows, with the notion that over time, due to many external factors affecting the box such as jostling during transport, placement on the store shelf, transit to the home, and activity in and out of the cupboard, that there is a certain degree of movement throughout the box's contents, with the less dense marshmallows migrating toward the top, and the slightly more dense frosted toasty oats settling toward the bottom.  This is logical, anyway.  But there are several open questions that merit further investigation:
+Then the next question is: Why?  The standard explanation on physical grounds probably goes something like this: consider a box of Lucky Charms as a simple mixture of toasted oats and marshmallows. Over time, due to many external factors impacting the box such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard, there is a certain degree of movement throughout the box's contents, with the slightly less dense marshmallows migrating toward the top, and the more dense frosted toasty oats settling toward the bottom.  This is logical, anyway.  There are several open questions left that stand further investigation:
 
 - Does the same pattern hold true for the individual charms? (A quick glance suggests "No".)
 - Is the association truly linear, or would some amount of curvature better describe the relationshio?
-- Are there strategies a person can use to minimize or accelerate the Lucky Charm dropoff?
+- Are there strategies a person can use to decelerate the Lucky Charm dropoff?
   - Can you cleverly shake the box (somehow) to better mix the marshmallows?
   - What about storage practices?  Does it help if the box is stored upside-down? 
   - Or flat on its side?
@@ -329,10 +329,10 @@ These open questions will have to wait for another day.
 
 # Next steps
 
-Since the original experiment in Summer 2023, I've run the experiment a couple more times with different groups of students.  The first was in November 2023 with middle schoolers as part of [YSU MegaMath](https://megamath.ysu.edu/), and the second was in February 2024 with high schoolers as part of [YSU MathFest](https://mathfest.ysu.edu/).  I didn't give the MegaMath students very clear instructions and before I knew it all teams had removed the plastic bags of cereal from the boxes and were scooping from the middle of the bag lied flat on the tabletop. I don't blame the students; it much more expedient to scoop cereal from the middle of the bag, certainly, but unfortunately the approach effectively destroys any natural density-sorting of the marshmallows that may have have been present, the key underlying element we expect is at play.  Moreover, nobody will ever convince me that their parents allowed them to eat their Lucky Charms that way.
+Since the original experiment in Summer 2023, I've run the experiment a couple more times with different groups of students.  The first was in November 2023 with middle schoolers as part of [YSU MegaMath](https://megamath.ysu.edu/), and the second was in February 2024 with high schoolers as part of [YSU MathFest](https://mathfest.ysu.edu/).  I didn't give the MegaMath students very clear instructions and before I knew it all teams had removed the plastic bags of cereal from the boxes and were scooping from the middle of the bag lied flat on the tabletop. I don't blame the students; it much more expedient to scoop cereal from the middle of the bag, certainly, but unfortunately the approach effectively destroys any natural density-sorting of the marshmallows that may have have been present, the key underlying element we suspect is at play.  Moreover, nobody will convince me that their parents ever allowed them to eat their Lucky Charms that way.
 
 
-By the time MathFest rolled around some months later I was better prepared and distributed a data collection sheet to the students ([which you can find here](https://gkerns.people.ysu.edu/LuckyCharmsDataCollectionSheet.docx)) with more detailed guidance and instructions.  The extra data collected are stored on Github in the `extraData` directory coming soon.
+By the time MathFest rolled around some months later I was better prepared and distributed a data collection sheet to the high school students ([which you can find here](https://gkerns.people.ysu.edu/LuckyCharmsDataCollectionSheet.docx)) with more detailed guidance and instructions.  The extra data collected are stored on Github in the `extraData` directory coming soon.
 
 Moving forward, I would like to collect even more data and get ever-better estimates of the Lucky Charm dropoff, and search for procedures to uniformly distribute the marshmallows through the entirety of the cereal box.  If successful, the first bowl of the box might not be so magical, but on the other hand, maybe those final bowls won't feel like such a chore waiting for the next brand new box of Lucky Charms!
 
