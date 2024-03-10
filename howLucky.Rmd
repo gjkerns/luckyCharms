@@ -18,8 +18,6 @@ library(plotly)
 library(reshape)
 library(readxl)
 library(tidyverse)
-Lucky <- read_excel("Lucky.xlsx")
-Lucky$Box <- factor(Lucky$Box)
 ```
 
 
@@ -41,7 +39,7 @@ In the early 2010's there were a series of articles that circulated on the Inter
 
 ### Introduction
 
-Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that the ending bowls of the box just didn't seem quite so *magical* as the first bowls had been.  They were missing something.  (The charms, of course.)  Was it my imagination?  Could this effect be real?  And if so, could it be detected?
+Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that the ending bowls of the box just didn't quite seem as *magical* as the first bowls had been.  They were missing something.  (The charms, of course.)  But was it my imagination?  Could this effect be real?  And if so, could it be measured?
 
 I happened to be teaching an upper-division undergraduate Probability & Statistics class at the time and the four students and I were determined to find out.
 
@@ -107,6 +105,9 @@ Here is a look at the top of the data set (first 6 rows):
 
 
 ```{r}
+library(readxl)
+Lucky <- read_excel("Lucky.xlsx")
+Lucky$Box <- as.factor(Lucky$Box)
 knitr::kable(head(Lucky), "simple")
 ```
 
@@ -165,10 +166,9 @@ While the relationship between `Totcharms` and `Weight` is poorly linear, there 
 
 ```{r}
 library(plotly)
-Lucky$Box <- as.factor(Lucky$Box)
-fig <- plot_ly(Lucky, x = ~Bowl, y = ~Weight, z = ~Totcharms, color = ~Box)
-fig <- fig %>% add_markers()
-fig <- fig %>% layout(scene = list(xaxis = list(title = 'Bowl'),
+fig <- plot_ly(Lucky, x = ~Bowl, y = ~Weight, z = ~Totcharms, color = ~Box) |>
+  add_markers() |>
+  layout(scene = list(xaxis = list(title = 'Bowl'),
                                    yaxis = list(title = 'Weight (g)'),
                                    zaxis = list(title = '# Charms')),
                       legend=list(title=list(text='Box')))
@@ -241,7 +241,7 @@ Check it out!  Now `Bowl` and `Weight` are **both** strongly linearly associated
 
 ### Add the regression plane
 
-We've got to do this one.   The code is more involved than the other examples above and has been omitted in the interest of brevity, but never fear, it is fully included [in this GitHub Gist here](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947).  Let's get on with the plot:
+We've got to do this one.   The code is slightly more involved than the previous examples and has been omitted for brevity, but you can check it all out [in this GitHub Gist](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947).  Let's get on with the plot:
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
@@ -288,9 +288,7 @@ lucky_plot <- add_trace(p = lucky_plot,
 lucky_plot
 ```
 
-Interactive 3D-plots are a lot of fun.  With `plotly` and `RStudio` and `GitHub` so widely available these days,  sharing such things with other people is easier now than ever before.  I hope you enjoy playing with the above as much as I have.
-
-As a final remark, in the `tl;dr` paragraph at the beginning we claimed that the interaction between `Bowl` and `Weight` is not significant.  It isn't.  We leave that for the reader to verify independently via something like the following:
+Interactive 3D-plots are a lot of fun. I hope you enjoy playing with the above as much as I have. As a final remark, in the `tl;dr` paragraph at the beginning we claimed that the interaction between `Bowl` and `Weight` is not significant.  It isn't.  The reader can verify this with the following:
 
 ```{r, eval = FALSE}
 summary(lm(Totcharms ~ Bowl * Weight, data = Lucky))
@@ -299,19 +297,19 @@ summary(lm(Totcharms ~ Bowl * Weight, data = Lucky))
 
 # Discussion and questions
 
-I originally thought that either the whole thing would turn out to be just my imagination, or that the effect would be too small to detect without LOTS AND LOTS of boxes of Lucky Charms.  Both turned out to be false.  The effect is real, and it is big enough to detect with a handful of boxes.
+I originally thought that either the whole thing would turn out to be a figment of my imagination or the effect would be too small to detect without LOTS AND LOTS of boxes of Lucky Charms.  Both alternatives turned out to be false.  The effect is real, and it is big enough to detect with a mere handful of boxes.
 
-The standard explanation on physical grounds would probably consider a box of Lucky Charms as a simple mixture of cereal and marshmallows, with the notion that over time, due to many factors affecting the boxes such as jostling during transport, placement on store shelves, transit to the home, and activity on the shelf, we should expect a certain amount of settling in the contents of the box, with the less-dense marshmallows tending toward the top, and the slightly more-dense toasted oats tending toward the bottom.  This is logical, anyway.  But there are several open questions
+The standard explanation for the effect on physical grounds would probably go along the lines of considering a box of Lucky Charms to be a simple mixture of cereal and marshmallows, with the notion that over time, due to many external factors affecting the box such as jostling during transport, placement on the store shelf, transit to the home, and activity in and out of the cupboard, that there should be a certain degree of settling in the box contents, with the less-dense marshmallows migrating toward the top, and the slightly more-dense toasted oats tending toward the bottom.  This is logical, anyway.  But there are several open questions yet to be investigated:
 
-- Does the same pattern hold true for the individual charms? (Quick glance suggests "No".)
-- Is the association truly linear, or is curvature needed to best describe the relationshio?
+- Does the same pattern hold true for the individual charms? (A quick glance suggests "No".)
+- Is the association truly linear, or would some amount of curvature better describe the relationshio?
 - Are there strategies a person can use to minimize or accelerate the Lucky Charm dropoff?
   - Can you cleverly shake the box (somehow) to better mix the marshmallows?
   - What about storage practices?  Does it help if the box is stored upside-down? 
   - Or flat on its side?
   - and so forth.
 
-
+These questions will have to wait for another day.
 
 # Next steps
 
