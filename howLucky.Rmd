@@ -28,8 +28,6 @@ Lucky$Box <- factor(Lucky$Box)
 
 See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of the data, code, photos, etc.
 
-Also check out this [interactive Tableau workbook]() published on Tableau Public.
-
 
 # Background and introduction
 
@@ -113,7 +111,7 @@ knitr::kable(head(Lucky), "simple")
 ```
 
 
-The average `Weight` was approximately 46.3g, the naximum number of a particular charm in any one bowl was 15 (Pink Hearts tied with Purple Horseshoes), and there are many, many other statistics and tables of interest in this data set.  For the task at hand, though, at the moment we are primarily concerned with `Totcharms`, and how that response variable is related to `Bowl`, and maybe `Weight` to a lesser extent.
+The average `Weight` was approximately 46.3g, the naximum number of a particular charm in any one bowl was 15 (Pink Hearts tied with Purple Horseshoes), and there could be many, many other statistics and tables of interest in this data set to explore.  For the task at hand, though, we are primarily concerned with `Totcharms`, and how that response variable is related to `Bowl`, and maybe `Weight` to a lesser extent.
 
 Here is a graph of `Totcharms` by `Bowl`, colored by `Box`.
 
@@ -137,7 +135,7 @@ Lucky |> ggplot(aes(x = Bowl, y = Totcharms)) +
   scale_alpha_manual(values = alphas, guide = "none")
 ```
 
-We can see a general trend downward for each series, but the path to get there varies for every box.  Notice how Box 3 starts high and stays high for a few bowls before dropping off smoothly until after Bowl 10, when it crashes. Look how Box 1 starts relatively low, but then increases after Bowl 5, peaks at Bowl 8, then nosedives down to Bowl 12.  It's as if the charms were settled near the top of Box 3, but were more concentrated in a pocket near the middle of Box 1. Some boxes bounce around a great deal, while some boxes are more of a straight line downward.  Put it all together, though, and the overall trend is decreasing and linear.  Note that all boxes lasted to Bowl 11, but only 2 boxes had 12 bowls, and a single box (Box 4) made it to Bowl 13.
+We can see a general trend downward for each series, but the path to get there varies for every box.  Notice how Box 3 starts high and stays high for a few bowls before dropping off smoothly until after Bowl 10 when it crashes. Look how Box 1 starts relatively low, but then increases after Bowl 5, peaks at Bowl 8, then nosedives down to Bowl 12.  It's as if the charms were settled near the top of Box 3, but were more concentrated in a pocket near the middle of Box 1. Some boxes bounce around a great deal, while other boxes are more of a straight line downward.  Put it all together, though, and the overall trend is decreasing and linear.  Note that all boxes lasted to Bowl 11, but only 2 boxes had 12 bowls, and a single box (Box 4) made it to Bowl 13.
 
 Now let's take a look at `Totcharms` versus `Weight`.
 
@@ -149,7 +147,7 @@ Lucky |> ggplot(aes(x = Weight, y = Totcharms, color = Box)) +
 p2
 ```
 
-This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough remaining to make a full 36g bowl.  And notice the one bowl which was extremely heavy. It isn't obvious what the explanation for that is, but if we dig a little deeper and plot `Weight` versus `Bowl` we can get a hint:
+This is a much noisier plot---as expected.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough cereal remaining to make a full 36g bowl.  And notice the one bowl which was extraordinarily heavy. It isn't obvious what the explanation for that is, but if we dig a little deeper and plot `Weight` versus `Bowl` we can get a hint:
 
 
 
@@ -160,7 +158,7 @@ Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) +
 p3
 ```
 
-Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  I don't remember that particular data point, but since it was the first time the team had ever finished a box, near the end it would have been difficult to judge how much was left and presumably we just poured the remainder of the box into that last bowl---I do this all the time at breakfast when I am nearing the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of 70g would have been split into (maybe) 40g and 30g, then we would have had two boxes that lasted to 13 bowls instead of one, and maybe the models below would have fit better.  Alas!  Such is the scientific enterprise.
+Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The reason behind that particular data point has unfortunately been lost to the sands of time, but since it was the first box the team had ever finished, near the end it may have been difficult to judge how much was left, and perhaps the rest was poured  into that last bowl---I personally do the same thing all the time at breakfast when I am nearing the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of almost 70g had been split into (say) two bowls of 40g and 30g, respectively, then we would have had two boxes that lasted to 13 bowls instead of one, and maybe the models below would have fit slightly better.  Alas!  We will never know. Such is the scientific enterprise.
 
 While the relationship between `Totcharms` and `Weight` does not appear to be strongly linear, there is a hidden relationship  between `Totcharms`, `Bowl`, and `Weight`, which is best visualized with a 3D plot. 
 
@@ -178,7 +176,7 @@ fig
 ```
 
 
-Note that the 3D plot is interactive.  Go ahead, spin it around, zoom, pan---check it out.  If you spin it around just right you will see that the dots lie more-or-less on a flat plane in 3D-space.  This is **exactly** the kind of relationship we are looking for in a multiple linear regression model (we'll get to that in a minute).
+**Note that the 3D plot is interactive.**  Go ahead, spin it around, zoom, pan---check it out.  If you spin it around just right you will see that the dots lie more-or-less on a flat plane in 3D-space.  This is **exactly** the kind of relationship we are looking for in a multiple linear regression model (we'll get to that in a minute).
 
 
 # Model fitting
@@ -194,7 +192,7 @@ mod1 <- lm(Totcharms ~ Bowl, data = Lucky)
 summary(mod1)
 ```
 
-We see that `Bowl` is a highly significant predictor for `Totcharms`.  The slope is approximately $-2.7$, in other words, for each additional bowl of Lucky Charms eaten we estimate the average `Totcharms` to decrease by 2.7 charms.  Our coefficient of determination is $R^2 = 0.5442$, that is, approximately 54% of the variance in `Totcharms` is explained by the regression model with `Bowl` as a predictor.  There is a whole discussion here about residual analysis that we are going to skip, but suffice it to say that the residual plots are relatively well-behaved.  Let's check out a fitted line plot with confidence bands for the regression line (the default):
+We see that `Bowl` is a highly significant predictor for `Totcharms`.  The slope is approximately $-2.7$, in other words, for each additional bowl of Lucky Charms eaten we estimate the average `Totcharms` to decrease by 2.7 charms.  Our coefficient of determination is $R^2 = 0.5442$, that is, approximately 54% of the variance in `Totcharms` is explained by the regression model with `Bowl` as a predictor.  There should be a whole discussion included here about residual analysis which we are going to skip, but suffice it to say that the residual plots are relatively well-behaved.  Let's check out a fitted line plot with confidence bands for the regression line (the default):
 
 ```{r}
 p1 + geom_smooth(method = "lm", aes(group=1), colour="black")
@@ -202,7 +200,7 @@ p1 + geom_smooth(method = "lm", aes(group=1), colour="black")
 
 That's a nice relationship with a clear decreasing trend.
 
-## For weight
+## For Weight
 
 We will do the same thing for `Weight`, ignoring `Bowl` for the moment.  Here we go:
 
@@ -211,14 +209,14 @@ mod2 <- lm(Totcharms ~ Weight, data = Lucky)
 summary(mod2)
 ```
 
-Here too, `Weight` is a highly significant predictor for `Totcharms`.  The slope is approximately $0.35$, in other words, for each additional 1g of Lucky Charms in a bowl we estimate the average `Totcharms` to increase by 0.35 charms.  This makes sense: more cereal, more charms.  The coefficient of determination is pretty bad: $R^2 = 0.0347$, that is, approximately NONE% of the variance in `Totcharms` is explained by the regression model with `Weight` as a predictor.  (!!)  That's okay, `Weight` was more of a supplementary measure to help control for variability in the scooped cereal amounts.  The residual analysis isn't as pretty here, which makes sense, and we would expect some problems anyway with the extreme values on the high and low ends.  For the sake of completeness we will include another fitted line plot:
+Here too, `Weight` is a highly significant predictor of `Totcharms`.  The slope is approximately $0.35$, in other words, for each additional 1g of Lucky Charms in a bowl we estimate the average `Totcharms` to increase by 0.35 charms.  This makes sense: more cereal, more charms.  The coefficient of determination is pretty bad: $R^2 = 0.0347$, that is, approximately NONE% of the variance in `Totcharms` is explained by the regression model with `Weight` as a predictor.  (!!)  That's okay, `Weight` was more of a supplementary measure to help control for variability in the scooped cereal amounts.  The residual analysis isn't as pretty here, which makes sense, and we would expect some problems anyway with the extreme values on the high and low ends.  For the sake of completeness we will include another fitted line plot:
 
 
 ```{r}
 p2 + geom_smooth(method = "lm", aes(group=1), colour="black")
 ```
 
-I wanted to use the `ggpubr` package to put these plots together and try to save some space, but the plots looked cramped and weren't very informative.  Anyway, this is what I would have done.
+I had thought to use the `ggpubr` package to put these fitted-line plots together and try to save some space in the discussion, but the plots were rather cramped and not very informative.  Anyway, this is what I would have done:
 
 ```{r, message = FALSE, warning = FALSE}
 # library(ggpubr)
@@ -239,7 +237,7 @@ mod3 <- lm(Totcharms ~ Bowl + Weight, data = Lucky)
 summary(mod3)
 ```
 
-Check it out!  Both `Bowl` and `Weight` are still *highly* significant predictors of `Totcharms`.  The slopes are nearly identical, but the slope for `Weight` increased to nearly 0.5 charms for each additional 1g of cereal.  The slope for `Bowl` is still $-2.7$.  Our (adjusted) Multiple $R^2$ has increased to almost 60%---this is notable considering the small dataset, the general noise and design choices for the experiment (every bit counts as 1, etc.).  It's kind of a surprise that the data weren't more mischievous and belligerent.  I wish more datasets I work with on a daily basis were so good-natured.
+Check it out!  Both `Bowl` and `Weight` are still *highly* significant predictors of `Totcharms`.  The slopes are nearly identical, but the slope for `Weight` increased to nearly 0.5 charms for each additional 1g of cereal.  The slope for `Bowl` is still $-2.7$.  Our (adjusted) Multiple $R^2$ has increased to almost 60%---this is notable considering the small dataset, the overall noise level, and some questionable design choices for the experiment (every marshmallow bit counts as 1, etc.).  It's kind of a surprise that the data weren't more mischievous and belligerent.  If only more datasets we work with on a daily basis were so well-behaved.
 
 ### Add the regression plane
 
@@ -290,9 +288,9 @@ We've got to do this one.  It is a really cool plot to see and play with, but th
 # lucky_plot
 ```
 
-3D-plots are a lot of fun.  I never get bored with them.  The coolest thing is that `plotly` and `RStudio` and `GitHub` and the rest all exist nowadays which makes sharing such things with other people easier than ever before.  I hope you enjoy playing with it as much as I have.
+Interactive 3D-plots are a lot of fun.  With `plotly` and `RStudio` and `GitHub` so widely available these days,  sharing such things with other people is easier than ever before.  I hope you enjoy playing with the above as much as I have.
 
-As a final remark, in the `tl;dr` statement we claimed that the interaction between `Bowl` and `Weight` is not significant---it isn't.  We leave that for the reader to verify independently with something like this:
+As a final remark, in the `tl;dr` paragraph at the beginning we claimed that the interaction between `Bowl` and `Weight` is not significant.  It isn't.  We leave that for the reader to verify independently via something like the following:
 
 ```{r, eval = FALSE}
 summary(lm(Totcharms ~ Bowl * Weight, data = Lucky))
@@ -303,15 +301,16 @@ summary(lm(Totcharms ~ Bowl * Weight, data = Lucky))
 
 I originally thought that either the whole thing would turn out to be just my imagination, or that the effect would be too small to detect without LOTS AND LOTS of boxes of Lucky Charms.  Both turned out to be false.  The effect is real, and it is big enough to detect with a handful of boxes.
 
-The natural thing would be to consider a box of Lucky Charms as a simple mixture of cereal and marshmallows, and over time, due to many factors such as jostling during transport, placement on store shelves, transit to the home, and activity on the shelf, we would expect there to be a certain amount of settling in the contents of the box, with the less-dense marshmallows tending toward the top, and the slightly more-dense toasted oats tending toward the bottom.  This is logical, anyway.  But then that leads to other questions:
+The standard explanation on physical grounds would probably consider a box of Lucky Charms as a simple mixture of cereal and marshmallows, with the notion that over time, due to many factors affecting the boxes such as jostling during transport, placement on store shelves, transit to the home, and activity on the shelf, we should expect a certain amount of settling in the contents of the box, with the less-dense marshmallows tending toward the top, and the slightly more-dense toasted oats tending toward the bottom.  This is logical, anyway.  But there are several open questions
 
 - Does the same pattern hold true for the individual charms? (Quick glance suggests "No".)
-- Are there other regression functions besides linear that are more appropriate?
+- Is the association truly linear, or is curvature needed to best describe the relationshio?
 - Are there strategies a person can use to minimize or accelerate the Lucky Charm dropoff?
   - Can you cleverly shake the box (somehow) to better mix the marshmallows?
   - What about storage practices?  Does it help if the box is stored upside-down? 
   - Or flat on its side?
   - and so forth.
+
 
 
 # Next steps
