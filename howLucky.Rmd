@@ -41,14 +41,14 @@ In the early 2010's there were a series of articles that circulated on the Inter
 
 ### Introduction
 
-Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that my latter bowls of the box just didn't seem quite as *magical* as the first bowls had seemed to be.  They had lost something.  (The charms, of course.)  But could it be my imagination?  Was this effect real?  And if so, was it detectable?
+Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that the ending bowls of the box just didn't seem quite so *magical* as the first bowls had been.  They were missing something.  (The charms, of course.)  Was it my imagination?  Could this effect be real?  And if so, could it be detected?
 
-I happened to be teaching an upper-division undergraduate Probability & Statistics class at the time and the 4 students and I were determined to find out.
+I happened to be teaching an upper-division undergraduate Probability & Statistics class at the time and the four students and I were determined to find out.
 
 
 # Experiment and data
 
-After some discussion, we decided on our materials and methods.
+After some discussion, the team decided on the following materials and methods.
 
 ### Materials
 
@@ -57,29 +57,29 @@ After some discussion, we decided on our materials and methods.
 - Two plastic "bowls", Container A and Container B, measuring 40.125g and 28.375g respectively
 - Large bowl for discards, some trash bags, and other assorted ancillaries
 
-The Lucky Charms were purchased from our local retailer---Wal-Mart.  There was nothing special about $n = 6$ boxes, it was simply the number of boxes a person could carry with two hands to the sixth floor of Cafaro Hall in a single trip.  The kitchen scale was for measuring the weight of cereal, which the team thought might be important, and the scale would also help with data collection because we didn't want to be overly preoccupied with sampling the exact same quantity of cereal every time.
+The Lucky Charms were purchased from our local retailer---Wal-Mart.  There was nothing special about $n = 6$ boxes, it was simply the number of boxes a person could carry with two hands to the 6th floor of Cafaro Hall in a single trip.  The kitchen scale was for measuring the weight of cereal, which the team thought might be important, and the scale could also help with data collection because we didn't want to be overly preoccupied with sampling the exact same quantity of cereal every time.
 
 
 ![Figure 2. Weighing in.](photo/weight.jpg)
 
 ### Methods
 
-For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving as recommended on the box (1 cup or 36g), even though it is ridiculous for anybody but a tiny magical leprechaun to get by on a meager 36g of Lucky Charms for breakfast.  The team was not particularly careful with the bowl size, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway, and were shooting for a healthy range of observed weights.
+For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving as recommended on the box (1 cup or 36g), even though it is ridiculous for anybody but a tiny magical leprechaun to get by on a meager 36g of Lucky Charms for breakfast.  The team was not particularly careful with bowl size consistency, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway and were shooting for a healthy range of observed weights.
 
 ![Figure 3. Pictured: Gavin Duwe (l) and Brenna Brocker (r)](photo/collect1.jpg)
 
-A bowl was scooped directly out of the box, weighed, and then poured out on a table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Then the following eight (8) charm types were recognized and their number recorded:  Rainbows, Pink Hearts, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons and Orange Stars.
+Each bowl was poured, delicately, from the box into the plastic container, weighed, and then emptied onto a table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Next the following eight (8) charm types were recognized and their number recorded:  Pink Hearts, Rainbows, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons, and Orange Stars.
 
 
 ![Figure 4. This was counted as 3 Purple Horseshoes.](photo/pieces.jpg)
 
 
-There were typically little bits and pieces of charms mixed about in the bowl; not every charm is 100% whole.  To deal with this, the team attempted to classify the bit as to the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small/nondescript for type  identification then it was discarded.
+Most of the time there were little bits and pieces of charms mixed about in the bowl; not every charm was 100% whole.  To deal with this, the team attempted to classify the bit as to the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small or nondescript for type identification then it was discarded.
 
 
 ## The data
 
-Data were collected over two separate class meetings---we had other statistical ground to cover, after all.  Two pairs of students collected and counted at once, and I helped with the scale and recording a hard copy of the weight values as they were called out and entered into the computer.
+Data were collected in class meetings on two separate occasions---we had other statistical ground to cover in the course after all.  The students worked in pairs to pour and count the charms. I helped with the scale and recorded a hard copy of weight values as they were called out and entered into the computer.  The team got into a data collection groove and by the end of the experiment all 4 students were pouring and counting independently.
 
 
 ![Figure 5. Data doesn't get much rawer than this.](photo/raw.jpg)
@@ -245,47 +245,47 @@ We've got to do this one.   The code is more involved than the other examples ab
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-library(plotly)
-library(reshape2)
-
-#Graph Resolution (more important for more complex shapes)
-graph_reso <- 0.05
-
-#Setup Axis
-axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
-axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
-
-#Sample points
-charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
-charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
-lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
-
-# construct the base scatterplot
-lucky_plot <- plot_ly(Lucky,
-                      x = ~Bowl,
-                      y = ~Weight,
-                      z = ~Totcharms,
-                      text = ~Box, # EDIT: ~ added
-                      type = "scatter3d",
-                      color = ~Box,
-                      mode = "markers")
-
-# set up the scene with axis titles
-lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
-                                   yaxis = list(title = 'Weight (g)'),
-                                   zaxis = list(title = '# Charms')),
-                                   legend=list(title=list(text='Box')),
-                                   showlegend=FALSE)
-
-# add the surface
-lucky_plot <- add_trace(p = lucky_plot,
-                        z = lucky_lm_surface,
-                        x = axis_x,
-                        y = axis_y,
-                        type = "surface")
-
-# make the plot
-lucky_plot
+# library(plotly)
+# library(reshape2)
+# 
+# #Graph Resolution (more important for more complex shapes)
+# graph_reso <- 0.05
+# 
+# #Setup Axis
+# axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
+# axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
+# 
+# #Sample points
+# charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
+# charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
+# lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
+# 
+# # construct the base scatterplot
+# lucky_plot <- plot_ly(Lucky,
+#                       x = ~Bowl,
+#                       y = ~Weight,
+#                       z = ~Totcharms,
+#                       text = ~Box, # EDIT: ~ added
+#                       type = "scatter3d",
+#                       color = ~Box,
+#                       mode = "markers")
+# 
+# # set up the scene with axis titles
+# lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
+#                                    yaxis = list(title = 'Weight (g)'),
+#                                    zaxis = list(title = '# Charms')),
+#                                    legend=list(title=list(text='Box')),
+#                                    showlegend=FALSE)
+# 
+# # add the surface
+# lucky_plot <- add_trace(p = lucky_plot,
+#                         z = lucky_lm_surface,
+#                         x = axis_x,
+#                         y = axis_y,
+#                         type = "surface")
+# 
+# # make the plot
+# lucky_plot
 ```
 
 Interactive 3D-plots are a lot of fun.  With `plotly` and `RStudio` and `GitHub` so widely available these days,  sharing such things with other people is easier now than ever before.  I hope you enjoy playing with the above as much as I have.
@@ -315,14 +315,14 @@ The standard explanation on physical grounds would probably consider a box of Lu
 
 # Next steps
 
-Since the original experiment in Summer 2023, I've run the experiment a couple more times with different groups of students.  The first was in November 2023 with middle schoolers as part of [YSU MegaMath](https://megamath.ysu.edu/), and the second was in February 2024 with high schoolers as part of [YSU MathFest](https://mathfest.ysu.edu/).  I didn't give the MegaMath students very clear instructions and before I knew it all teams had removed the plastic bags of cereal from the boxes and were scooping from the middle of the bag. I don't blame them; it is a much easier method of scooping cereal, certainly, but it mostly destroys the natural density-sorting of the marshmallows, the key underlying factor we expect is at play.  By the time MathFest came along I was better organized and wrote a data collection sheet (which you can find here) with more detailed guidance and instructions.  Those data are stored in Github in the `extraData` directory.
+Since the original experiment in Summer 2023, I've run the experiment a couple more times with different groups of students.  The first was in November 2023 with middle schoolers as part of [YSU MegaMath](https://megamath.ysu.edu/), and the second was in February 2024 with high schoolers as part of [YSU MathFest](https://mathfest.ysu.edu/).  I didn't give the MegaMath students very clear instructions and before I knew it all teams had removed the plastic bags of cereal from the boxes and were scooping from the middle of the bag lied flat on the tabletop. I don't blame the students; it much more expedient to scoop cereal from the middle of the bag, certainly, but unfortunately the approach effectively destroys any natural density-sorting of the marshmallows that may have have been present, the key underlying element we expect is at play.  By the time MathFest rolled around some months later I was better prepared and distributed a data collection sheet to the students ([which you can find here](https://gkerns.people.ysu.edu/LuckyCharmsDataCollectionSheet.docx)) with more detailed guidance and instructions.  The extra data collected are stored on Github in the `extraData` directory coming soon.
 
-Moving forward, I would like to collect more data and get ever-better estimates of the Lucky Charm dropoff, and search for procedures that effectively mix the cereal to better distribute the marshmallows throughout the duration of the Lucky Charms box's lifetime.  As a result maybe the first bowl of the box won't be quite so magical, but on the other hand, maybe those final bowls won't feel like such a chore, waiting for the next brand new box of Lucky Charms!
+Moving forward, I would like to collect even more data and get ever-better estimates of the Lucky Charm dropoff, and search for procedures to uniformly distribute the marshmallows through the entirety of the cereal box.  If successful, the first bowl of the box might not be so magical, but on the other hand, maybe those final bowls won't feel like such a chore waiting for the next brand new box of Lucky Charms!
 
 
 # Acknowledgements
 
-This experiment and these results would not have been possible without the enthusiasm and diligent attention to detail of all four STAT 3743 students of Summer 2023: Brenna Brocker, Kate Coppola, Gavin Duwe, and Haziq Rabbani.  I would also like to thank the Department of Mathematics and Statistics at Youngstown State University for supporting this research and supporting additional data collection at YSU MegaMath and YSU MathFest.
+This experiment and these results would not have been possible without the equal enthusiasm and diligent attention to detail of all four STAT 3743 students in Summer 2023: Brenna Brocker, Kate Coppola, Gavin Duwe, and Haziq Rabbani.  I would also like to thank the Department of Mathematics and Statistics at Youngstown State University for supporting this research and supporting additional data collection at YSU MegaMath and YSU MathFest.
 
 
 
