@@ -25,7 +25,7 @@ library(tidyverse)
 
 
 
-**The `tl;dr` version:** A team of students did an experiment to determine whether bowls of Lucky Charms get less "lucky" over the course of a box of cereal.  We estimate a decrease of approximately 2.7 total charms per additional bowl on average.  The weight of cereal also appears to play a role, and for each 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant. This corresponds to more than a 50% dropoff in charms from the first bowl to the last. The interaction between bowl and weight is not statistically significant.
+**The `tl;dr` version:** A team of students helped design and conduct an experiment to determine whether bowls of Lucky Charms get less "lucky" over the course of a box of cereal.  We estimate a decrease of approximately 2.7 total charms per additional bowl on average.  The weight of cereal also appears to play a role, and for each 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant. This corresponds to more than a 50% dropoff in charms from the first bowl to the last. The interaction between bowl and weight is not statistically significant.
 
 See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of the data, code, photos, etc.
 
@@ -42,7 +42,7 @@ In the early 2010's there were a series of articles that circulated on the Inter
 
 ### Introduction
 
-Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that the ending bowls of the box just didn't quite seem as *magical* as the first bowls had been.  They were missing something.  (The charms, of course.)  But was it my imagination?  Could this effect be real?  And if so, could it be measured?
+Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in hand it occurred to me that the ending bowls of the box just didn't quite seem as *magical* as the first bowls had been.  They were missing something.  (The charms, of course.)  But was it my imagination?  Could this effect be real?  And if so, could it be measured?
 
 I happened to be teaching an undergraduate probability & statistics course at the time and the four students and I were determined to find out.
 
@@ -150,7 +150,7 @@ Lucky |> ggplot(aes(x = Weight, y = Totcharms, color = Box)) +
 p2
 ```
 
-This plot is more noisy---as we may have guessed.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights usually belong to the last bowl of the box:  there isn't enough cereal remaining to make a complete 36g bowl.  And notice there was one bowl that clocked-in extraordinarily heavy.  There isn't any obvious explanation for this observed irregularity, but if we dig a little deeper and plot `Weight` versus `Bowl` we may get a hint:
+This plot is more noisy---as we may have guessed.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights usually belong to the last bowl of the box:  there isn't enough cereal remaining to make a complete 36g bowl.  And notice there was one bowl that clocked-in extraordinarily heavy.  There isn't any obvious explanation for this outlier, but if we dig a little deeper and plot `Weight` versus `Bowl` we may get some insight:
 
 ```{r}
 Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) + 
@@ -159,7 +159,7 @@ Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) +
 p3
 ```
 
-Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The details behind that particular data point have unfortunately been lost to the sands of time, but bearing in mind that this was the first box the team had ever finished, near the end it may have been difficult to judge how much cereal was left, and perhaps all the remainder was poured into that final twelfth bowl---I personally do the same thing routinely at breakfast as I near the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of almost 70g had been split into (say) two bowls of 40g and 30g, respectively, then there would have been two boxes that made it to 13 bowls instead of one box, and maybe the models below would have fit the observed data slightly better.  Alas!  We will never know. Such is the scientific enterprise.
+Now we see that the extra-heavy bowl was the last `Bowl = 12` of `Box = 1`.  The origin of that particular data point has been lost to the sands of time, but bearing in mind that it was the first box the team had ever finished, near the end it may have been difficult to judge how much cereal was left, and perhaps all the remainder was dumped into that final bowl---I personally do the same thing routinely at breakfast near the end of a box of cereal.  Looking at the points on the graph, if that 12th bowl of 70g had been split into (say) two bowls of 40g and 30g, respectively, then there would have been two boxes that made it all the way to 13 bowls instead of just one, and maybe the models below would have fit the observed data slightly better.  Alas!  We will never know. Such is the scientific enterprise.
 
 While the relationship between `Totcharms` and `Weight` is poorly linear, there is a hidden relationship  between `Totcharms`, `Bowl`, and `Weight` which can best be explored with a 3D visualization: 
 
@@ -312,9 +312,9 @@ That is, almost 53 charms in the first bowl of cereal.  What about the last bowl
 ```{r}
 33.3168 + (-2.7552)*11 + 0.4819*46.3
 ```
-WOW.  25.3 charms on average.  This corresponds to just over a 52% reduction in charms from the first bowl to the eleventh.  No, it was most certainly not my imagination. Any hungry toddler could easily detect this effect by taste alone.
+WOW.  25.3 charms on average.  This corresponds to just over a 52% reduction in charms from the first bowl to the eleventh.  No, it was most definitely not my imagination. A hungry toddler ought to easily detect this difference by taste alone.
 
-The next question is: Why?  A standard argument on physical grounds might go something like this: imagine a box of Lucky Charms as a simple mechanical mixture of toasted oats and marshmallows. Many external forces agitate the box over the course of its lifetime, such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard.  This leads to an inevitable  shifting of contents, with the slightly less dense marshmallows migrating toward the top of the box, and the more dense frosted toasty oats settling toward the bottom.  The rationale is logical, anyway.  But it leaves several other related questions unanswered:
+The next question is: Why?  A textbook argument on physical grounds might go something like this: consider a box of Lucky Charms to be a simple mechanical mixture of frosted toasted oats and marshmallows. Many external forces agitate the box over the course of its lifetime, such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard.  This leads to an inevitable  shifting of contents, with the slightly less dense marshmallows migrating toward the top of the box, and the more dense toasty oats settling toward the bottom.  The rationale is logical, anyway.  But it leaves several other related questions unanswered:
 
 1. Does a similar pattern hold true for the individual charm types? (A quick glance suggests "No".)
 2. Is the association truly linear, or would some amount of curvature better describe the relationship?
@@ -339,7 +339,7 @@ Moving forward, more data is needed to better estimate the Lucky Charm dropoff, 
 
 # Acknowledgements
 
-This experiment and these results would not have been possible without the intense enthusiasm and diligent attention to detail shared by all four STAT 3743 students in Summer 2023: Brenna Brocker, Kate Coppola, Gavin Duwe, and Haziq Rabbani.  I would also like to thank the Department of Mathematics and Statistics at Youngstown State University for supporting this research and supporting additional data collection at YSU MegaMath and YSU MathFest.
+This experiment and these results would not have been possible without the inextinguishable enthusiasm and strict attention to detail shared by all four STAT 3743 students in Summer 2023: Brenna Brocker, Kate Coppola, Gavin Duwe, and Haziq Rabbani.  I would also like to thank the Department of Mathematics and Statistics at Youngstown State University for supporting this research and additional data collection at YSU MegaMath and YSU MathFest.
 
 
 
