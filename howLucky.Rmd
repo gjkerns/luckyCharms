@@ -38,13 +38,13 @@ See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of 
 
 ### Background
 
-In the early 2010's there were a series of articles that circulated on the Internet about somebody investigating whether or not "Double Stuf" Oreos were truly double-stuffed.  (They're not.)  It was a neat idea, and a substantial amount of material has been written about it in the years since, [see here to get started](http://blog.recursiveprocess.com/2013/03/03/oreo-original-vs-double-vs-mega/).  The story evidently caused enough splash that some teachers were said to be using the experiment as an activity in their classrooms, and  students locally have reported performing the experiment at their own school.  
+In the early 2010's there were a series of articles that circulated on the Internet about somebody investigating whether or not "Double Stuf" Oreos were truly double-stuffed.  (They're not.)  It was a neat idea, and a substantial amount of material has been written about it since, [see here to get started](http://blog.recursiveprocess.com/2013/03/03/oreo-original-vs-double-vs-mega/).  The story evidently caused enough splash that some teachers were said to be using the experiment as an activity in their classrooms, and  students locally have reported performing the experiment at their own school.  
 
 ### Introduction
 
 Against this backdrop, in the summer of 2023 I was eating a bowl of Lucky Charms for breakfast one morning.  The box was nearly empty, and I thought to myself, "I'd almost rather throw the rest of this box away and open up a brand new box of Lucky Charms!" Now, if you're anything like me, or millions of other people, then you love Lucky Charms, and you've loved them for as long as you can remember. They truly are *Magically Delicious*!  But sitting there that summer morning with a spoon in my hand it occurred to me that the ending bowls of the box just didn't quite seem as *magical* as the first bowls had been.  They were missing something.  (The charms, of course.)  But was it my imagination?  Could this effect be real?  And if so, could it be measured?
 
-I happened to be teaching a summer upper-division undergraduate probability & statistics course at the time and the four students and I were determined to find out.
+I happened to be teaching an undergraduate probability & statistics course at the time and the four students and I were determined to find out.
 
 
 # Experiment and data
@@ -314,11 +314,11 @@ That is, almost 53 charms in the first bowl of cereal.  What about the last bowl
 ```
 WOW.  25.3 charms on average.  This corresponds to just over a 52% reduction in charms from the first bowl to the eleventh.  No, it was most certainly not my imagination. Any hungry toddler could easily detect this effect by taste alone.
 
-The next question is: Why?  A standard argument on physical grounds might go something like this: imagine a box of Lucky Charms as a simple mechanical mixture of toasted oats and marshmallows. Over time, many external factors perturb the box such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard, and so there is a shifting of contents, with the slightly less dense marshmallows migrating toward the top of the box, and the more dense frosted toasty oats settling toward the bottom.  This rationale is logical, anyway.  But it leaves other related questions unanswered:
+The next question is: Why?  A standard argument on physical grounds might go something like this: imagine a box of Lucky Charms as a simple mechanical mixture of toasted oats and marshmallows. Many external forces agitate the box over the course of its lifetime, such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard.  This leads to an inevitable  shifting of contents, with the slightly less dense marshmallows migrating toward the top of the box, and the more dense frosted toasty oats settling toward the bottom.  The rationale is logical, anyway.  But it leaves several other related questions unanswered:
 
-- Does the same pattern hold true for the individual charms? (A quick glance suggests "No".)
-- Is the association truly linear, or would some amount of curvature better describe the relationship?
-- Are there strategies a person can use to decelerate the Lucky Charm dropoff?
+1. Does a similar pattern hold true for the individual charm types? (A quick glance suggests "No".)
+2. Is the association truly linear, or would some amount of curvature better describe the relationship?
+3. Are there strategies a person can use to decelerate the Lucky Charm dropoff?
   - Can you cleverly shake the box (somehow) to better mix the marshmallows?
   - What about storage practices?  Does it help if the box is stored upside-down? 
   - Or flat on its side?
@@ -329,7 +329,7 @@ These open questions will have to wait for another day.
 
 # Next steps
 
-Since the original experiment in Summer 2023, I've run the experiment a couple more times with different groups of students.  The first was in November 2023 with middle schoolers as part of [YSU MegaMath](https://megamath.ysu.edu/), and the second was in February 2024 with high schoolers as part of [YSU MathFest](https://mathfest.ysu.edu/).  I didn't give the MegaMath students very clear instructions and before I knew it all teams had removed the plastic bags of cereal from the boxes and were scooping from the middle of the bag lied flat on the tabletop. I don't blame the students; it much more expedient to scoop cereal from the middle of the bag, certainly, but unfortunately the approach effectively destroys any natural density-sorting of the marshmallows that may have have been present, the key underlying element we suspect is at play.  Moreover, nobody will convince me that their parents ever allowed them to eat their Lucky Charms that way.
+Since the original experiment in Summer 2023, I've run the experiment a couple more times with different groups of students.  The first was in November 2023 with middle schoolers as part of [YSU MegaMath](https://megamath.ysu.edu/), and the second was in February 2024 with high schoolers as part of [YSU MathFest](https://mathfest.ysu.edu/).  I didn't give the MegaMath students very clear instructions and before I knew it all teams had removed the plastic bags of cereal from the box and were scooping from the middle of the bag lied flat on the tabletop. I couldn't blame them; it is much easier to scoop cereal from the middle of the bag out in the open.  Unfortunately, this method likely compromises the integrity of the experiment by erasing any natural density-sorting of the marshmallows that might have have been present, the key underlying element we suspect is at play.  Moreover, I will never believe that anybody's parents ever let them get away with eating their Lucky Charms that way.
 
 
 By the time MathFest rolled around some months later I was better prepared and distributed a data collection sheet to the high school students ([which you can find here](https://gkerns.people.ysu.edu/LuckyCharmsDataCollectionSheet.docx)) with more detailed guidance and instructions.  The extra data collected are stored on Github in the `extraData` directory coming soon.
@@ -339,7 +339,7 @@ Moving forward, more data is needed to better estimate the Lucky Charm dropoff, 
 
 # Acknowledgements
 
-This experiment and these results would not have been possible without the equal enthusiasm and diligent attention to detail of all four STAT 3743 students in Summer 2023: Brenna Brocker, Kate Coppola, Gavin Duwe, and Haziq Rabbani.  I would also like to thank the Department of Mathematics and Statistics at Youngstown State University for supporting this research and supporting additional data collection at YSU MegaMath and YSU MathFest.
+This experiment and these results would not have been possible without the intense enthusiasm and diligent attention to detail shared by all four STAT 3743 students in Summer 2023: Brenna Brocker, Kate Coppola, Gavin Duwe, and Haziq Rabbani.  I would also like to thank the Department of Mathematics and Statistics at Youngstown State University for supporting this research and supporting additional data collection at YSU MegaMath and YSU MathFest.
 
 
 
