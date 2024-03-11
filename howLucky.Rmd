@@ -67,15 +67,15 @@ The Lucky Charms were purchased from our local retailer---Wal-Mart.  There was n
 
 For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving of cereal as recommended on the box (1 cup or 36g), even though it is ridiculous for anybody but a tiny magic leprechaun to get by on a measly 36g of Lucky Charms for breakfast.  The team was not especially careful maintaining bowl size consistency, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway and were shooting for a healthy range of observed weights.
 
-![Figure 3. Pictured: Gavin Duwe (l) and Brenna Brocker (r)](photo/collect1.jpg)
+![Figure 3. Pictured: Gavin Duwe (l) and Brenna Brocker (r).](photo/collect1.jpg)
 
-Each bowl was poured, delicately, from the box into the plastic container, weighed, and then emptied onto a table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Next the following eight (8) charm types were recognized and their number recorded:  Pink Hearts, Rainbows, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons, and Orange Stars.
+Each bowl was poured, delicately, from the box into the plastic container, weighed, and then emptied onto the table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Next the following eight (8) charm types were recognized and their number recorded:  Pink Hearts, Rainbows, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons, and Orange Stars.
 
 
 ![Figure 4. This was counted as 3 Purple Horseshoes.](photo/pieces.jpg)
 
 
-There were often little bits and pieces of charms interspersed throughout the bowl; not every charm was 100% intact.  To deal with this, the team attempted to classify the bit as to the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small or nondescript for type identification then it was discarded.
+There were often little marshmallow bits present in the bowl; not every charm was 100% intact.  To deal with this, the team attempted to classify the bit into the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small or nondescript for type identification then it was discarded.
 
 
 ## The data
@@ -114,7 +114,7 @@ knitr::kable(head(Lucky))
 ```
 
 
-Equipped with these data we can report things like the mean observed `Weight` was approximately 46.3g, the maximum number of a particular charm in any one bowl was 15 (Pink Hearts tied with Purple Horseshoes), and so forth.  We could spend all day computing endless statistics on this dataset to our Pink Heart's content, but at the moment we are primarily concerned with `Totcharms` and how the variable relates to `Bowl` and maybe `Weight` to a lesser degree.
+Equipped with these data we can report things like the mean observed `Weight` was approximately 46.3g, the maximum number of a particular charm in any one bowl was 15 (Pink Hearts tied with Purple Horseshoes), and so forth.  We could spend all day computing endless statistics on this dataset to our Pink Heart's content, but at the moment we are primarily focused on `Totcharms` and how it relates to `Bowl` and maybe `Weight` to a lesser extent.
 
 Here is a graph of `Totcharms` by `Bowl`, colored by `Box`:
 
@@ -150,7 +150,7 @@ Lucky |> ggplot(aes(x = Weight, y = Totcharms, color = Box)) +
 p2
 ```
 
-This plot is more noisy---as we might have guessed in advance.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights are usually associated with the last bowl of the box:  there isn't enough cereal remaining to make a complete 36g bowl.  And notice there was one bowl that clocked-in extraordinarily heavy.  There isn't any obvious explanation for this observed irregularity, but if we dig a little deeper and plot `Weight` versus `Bowl` we may get a hint:
+This plot is more noisy---as we may have guessed.  We have a nice range of weights, from a minimum under 30g up to a maximum near 70g.  Note that the lowest weights usually belong to the last bowl of the box:  there isn't enough cereal remaining to make a complete 36g bowl.  And notice there was one bowl that clocked-in extraordinarily heavy.  There isn't any obvious explanation for this observed irregularity, but if we dig a little deeper and plot `Weight` versus `Bowl` we may get a hint:
 
 ```{r}
 Lucky |> ggplot(aes(x = Bowl, y = Weight, color = Box)) + 
