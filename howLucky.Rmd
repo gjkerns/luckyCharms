@@ -25,7 +25,7 @@ library(tidyverse)
 
 
 
-**The `tl;dr` version:** in a given box of Lucky Charms, for each bowl of cereal eaten we estimate a decrease of approximately 2.7 total charms per bowl on average.  The weight of cereal also appears to play a role when suitably incorporated into the model and for each increase of 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant. This corresponds to an over 50% dropoff in charms from the first bowl to the last. The interaction between bowl and weight is not statistically significant.
+**The `tl;dr` version:** A team of students did an experiment to determine whether bowls of Lucky Charms get less "lucky" over the course of a box of cereal.  We estimate a decrease of approximately 2.7 total charms per additional bowl on average.  The weight of cereal also appears to play a role, and for each 1g of cereal we estimate approximately 0.5 more charms on average---with bowl held constant. This corresponds to more than a 50% dropoff in charms from the first bowl to the last. The interaction between bowl and weight is not statistically significant.
 
 See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of the data, code, photos, etc.
 
