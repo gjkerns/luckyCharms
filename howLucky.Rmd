@@ -314,10 +314,10 @@ That is, almost 53 charms in the first bowl of cereal.  What about the last bowl
 ```
 WOW.  25.3 charms on average.  This corresponds to just over a 52% reduction in charms from the first bowl to the eleventh.  No, it was most certainly not my imagination. Any hungry toddler could easily detect this effect by taste alone.
 
-Then the next question is: Why?  A standard explanation on physical grounds might go something like this: imagine a box of Lucky Charms as a simple mechanical mixture of toasted oats and marshmallows. Over time, due to many external factors perturbing the box such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard, there is a certain shifting of contents, with the slightly less dense marshmallows migrating toward the top of the box and the more dense frosted toasty oats settling toward the bottom.  This rationale is logical, anyway.  This leads to further questions:
+The next question is: Why?  A standard argument on physical grounds might go something like this: imagine a box of Lucky Charms as a simple mechanical mixture of toasted oats and marshmallows. Over time, many external factors perturb the box such as jostling during transport, placement on the store shelf, transit to the home, and activity in and around the cupboard, and so there is a shifting of contents, with the slightly less dense marshmallows migrating toward the top of the box, and the more dense frosted toasty oats settling toward the bottom.  This rationale is logical, anyway.  But it leaves other related questions unanswered:
 
 - Does the same pattern hold true for the individual charms? (A quick glance suggests "No".)
-- Is the association truly linear, or would some amount of curvature better describe the relationshio?
+- Is the association truly linear, or would some amount of curvature better describe the relationship?
 - Are there strategies a person can use to decelerate the Lucky Charm dropoff?
   - Can you cleverly shake the box (somehow) to better mix the marshmallows?
   - What about storage practices?  Does it help if the box is stored upside-down? 
