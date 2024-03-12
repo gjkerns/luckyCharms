@@ -1,0 +1,23 @@
+---
+title: "Lucky 3D Scatterplot"
+output:
+  html_document
+---
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(readxl)
+Lucky <- read_excel("Lucky.xlsx")
+Lucky$Box <- as.factor(Lucky$Box)
+
+library(plotly)
+fig <- plot_ly(Lucky, x = ~Bowl, y = ~Weight, z = ~Totcharms, color = ~Box) |>
+  add_markers() |>
+  layout(scene = list(xaxis = list(title = 'Bowl'),
+                                   yaxis = list(title = 'Weight (g)'),
+                                   zaxis = list(title = '# Charms')),
+                      legend=list(title=list(text='Box')))
+fig
+```
+
+See [this GitHub Gist](https://gist.github.com/gjkerns/47cd52013245609cd80f40d6e7e0a3ed) for the code snippet.  The data are available in [this GitHub repository](https://github.com/gjkerns/luckyCharms).

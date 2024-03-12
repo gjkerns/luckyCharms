@@ -1,0 +1,58 @@
+---
+title: "Lucky 3D plot with Regression Plane"
+output:
+  html_document
+---
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(readxl)
+Lucky <- read_excel("Lucky.xlsx")
+Lucky$Box <- as.factor(Lucky$Box)
+
+mod3 <- lm(Totcharms ~ Bowl + Weight, data = Lucky)
+
+library(plotly)
+library(reshape2)
+
+#Graph Resolution (more important for more complex shapes)
+graph_reso <- 0.05
+
+#Setup Axis
+axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
+axis_y <- seq(min(Lucky$Weight), max(Lucky$Weight), by = graph_reso)
+
+#Sample points
+charms_lm_surface <- expand.grid(Bowl = axis_x, Weight = axis_y, KEEP.OUT.ATTRS = FALSE)
+charms_lm_surface$Totcharms <- predict.lm(mod3, newdata = charms_lm_surface)
+lucky_lm_surface <- acast(charms_lm_surface, Weight ~ Bowl, value.var = "Totcharms") # y ~ x
+
+# construct the base scatterplot
+lucky_plot <- plot_ly(Lucky,
+                      x = ~Bowl,
+                      y = ~Weight,
+                      z = ~Totcharms,
+                      text = ~Box, # EDIT: ~ added
+                      type = "scatter3d",
+                      color = ~Box,
+                      mode = "markers")
+
+# set up the scene with axis titles
+lucky_plot <- lucky_plot |> layout(scene = list(xaxis = list(title = 'Bowl'),
+                                   yaxis = list(title = 'Weight (g)'),
+                                   zaxis = list(title = '# Charms')),
+                                   legend=list(title=list(text='Box')),
+                                   showlegend=FALSE)
+
+# add the surface
+lucky_plot <- add_trace(p = lucky_plot,
+                        z = lucky_lm_surface,
+                        x = axis_x,
+                        y = axis_y,
+                        type = "surface")
+
+# make the plot
+lucky_plot
+```
+
+Check out [this GitHub Gist](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947) for the code to build the plot.  The data are available in [this GitHub repository](https://github.com/gjkerns/luckyCharms).
