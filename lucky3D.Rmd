@@ -1,5 +1,5 @@
 ---
-title: "Lucky 3D Scatterplot (Interactive)"
+title: "Interactive Lucky 3D Scatterplot"
 output:
   html_document
 ---
