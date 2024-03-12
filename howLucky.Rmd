@@ -245,7 +245,7 @@ Check it out!  Now `Bowl` and `Weight` are **both** strongly linearly associated
 The code for this visualization is slightly more involved than the previous examples and has been omitted for brevity, but you can check it all out [in this GitHub Gist](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947).  Let's get on with the plot:
 
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
 library(plotly)
 library(reshape2)
 
