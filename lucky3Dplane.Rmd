@@ -1,5 +1,5 @@
 ---
-title: "Lucky 3D plot with Regression Plane"
+title: "Lucky 3D plot with Regression Plane (Interactive)"
 output:
   html_document
 ---
