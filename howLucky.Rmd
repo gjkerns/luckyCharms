@@ -246,7 +246,6 @@ The code for this visualization is slightly more involved than the previous exam
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
-library(plotly)
 library(reshape2)
 
 #Graph Resolution (more important for more complex shapes)
