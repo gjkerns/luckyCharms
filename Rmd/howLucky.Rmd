@@ -32,7 +32,7 @@ See [this GitHub repository](https://github.com/gjkerns/luckyCharms) for all of 
 
 # Background and introduction
 
-![Figure 1. They're Magically Delicious!](photo/luckycharms.jpg)
+![Figure 1. They're Magically Delicious!](../photo/luckycharms.jpg)
 
 
 
@@ -61,18 +61,18 @@ After some discussion, the team decided on the following materials and methods.
 The Lucky Charms were purchased from our local retailer---Wal-Mart.  There was nothing special about $n = 6$ boxes, it was simply the number of boxes a person could carry with two hands to the 6th floor of Cafaro Hall in a single trip.  The kitchen scale was for measuring the weight of cereal, which the team thought might be important, and the scale could also help with data collection because we didn't want to be overly preoccupied with sampling the exact same amount of cereal every time.
 
 
-![Figure 2. Weighing in.](photo/weight.jpg)
+![Figure 2. Weighing in.](../photo/weight.jpg)
 
 ### Methods
 
 For the purposes of this experiment, a "bowl" was taken to be approximately 1 serving of cereal as recommended on the box (1 cup or 36g), even though it is ridiculous for anybody but a tiny magic leprechaun to get by on a measly 36g of Lucky Charms for breakfast.  The team was not especially careful maintaining bowl size consistency, and anything close to 1 cup was considered good enough.  We were accounting for mass of cereal with the kitchen scale anyway and were shooting for a healthy range of observed weights.
 
-![Figure 3. Pictured: Gavin Duwe (l) and Brenna Brocker (r).](photo/collect1.jpg)
+![Figure 3. Pictured: Gavin Duwe (l) and Brenna Brocker (r).](../photo/collect1.jpg)
 
 Each bowl was poured, delicately, from the box into the plastic container, weighed, and then emptied onto the table surface for counting.  The toasted oats were separated from the marshmallows and discarded.  Next the following eight (8) charm types were recognized and their number recorded:  Pink Hearts, Rainbows, Purple Horseshoes, Blue Moons, Green Clovers, Unicorns, Tasty Red Balloons, and Orange Stars.
 
 
-![Figure 4. This was counted as 3 Purple Horseshoes.](photo/pieces.jpg)
+![Figure 4. This was counted as 3 Purple Horseshoes.](../photo/pieces.jpg)
 
 
 There were often little marshmallow bits present in the bowl; not every charm was 100% intact.  To deal with this, the team attempted to classify the bit into the type of charm (Green Clover, Blue Moon, etc.), and if the type could be determined, then that bit was counted as 1 in the respective category.  If the bit was too small or nondescript for type identification then it was discarded.
@@ -83,11 +83,11 @@ There were often little marshmallow bits present in the bowl; not every charm wa
 Data were collected during class meetings on two separate occasions---we had other statistical ground to cover in the course after all.  The students worked in pairs to pour and count the charms. I helped with the scale and recorded a hard copy of weight values as they were called out and entered into the computer.  The team got into a data collection groove and by the end of the experiment all 4 students were pouring and counting charms independently.
 
 
-![Figure 5. Data doesn't get much rawer than this.](photo/raw.jpg)
+![Figure 5. Data doesn't get much rawer than this.](../photo/raw.jpg)
 
 The plastic container + cereal were weighed together each round, and then the weight of the container (measured at the start of the experiment) was subtracted from the observed total weight.  The charms were entered into their respective columns and totaled.
 
-![Figure 6. Pictured: Kate Coppola.](photo/laptop.jpg)
+![Figure 6. Pictured: Kate Coppola.](../photo/laptop.jpg)
 
 
 ### Measured variables
@@ -101,14 +101,14 @@ The plastic container + cereal were weighed together each round, and then the we
 - `Totcharms`: sum total of the assorted charms
 
 
-![Figure 7. Pictured: Haziq Rabbani](photo/collect3.jpg)
+![Figure 7. Pictured: Haziq Rabbani](../photo/collect3.jpg)
 
 
 Here is a look at the top of the data set (first 6 rows):
 
 ```{r}
 library(readxl)
-Lucky <- read_excel("Lucky.xlsx")
+Lucky <- read_excel("../data/Lucky.xlsx")
 Lucky$Box <- as.factor(Lucky$Box)
 knitr::kable(head(Lucky))
 ```
@@ -245,11 +245,11 @@ Check it out!  Now `Bowl` and `Weight` are **both** strongly linearly associated
 The code for this visualization is slightly more involved than the previous examples and has been omitted for brevity, but you can check it all out [in this GitHub Gist](https://gist.github.com/gjkerns/8636439f9e6afdea1ba9d301b2b38947).  Let's get on with the plot:
 
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = TRUE}
 library(reshape2)
 
 #Graph Resolution (more important for more complex shapes)
-graph_reso <- 0.05
+graph_reso <- 1
 
 #Setup Axis
 axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
