@@ -16,7 +16,7 @@ library(plotly)
 library(reshape2)
 
 #Graph Resolution (more important for more complex shapes)
-graph_reso <- 0.05
+graph_reso <- 1
 
 #Setup Axis
 axis_x <- seq(min(Lucky$Bowl), max(Lucky$Bowl), by = graph_reso)
